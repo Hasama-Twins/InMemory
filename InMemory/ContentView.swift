@@ -8,17 +8,39 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State private var numberOfPages = 0
+    @State private var currentPage = 0
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        ZStack {
+            Color.blue
+                .ignoresSafeArea()
+            
+            TabView(selection: $currentPage) {
+                if numberOfPages == 0 {
+                    NewGardenView(numberOfPages: $numberOfPages, currentPage: $currentPage)
+                } else {
+                    ForEach(0..<numberOfPages, id: \.self) { index in
+                        
+                        if index == (numberOfPages - 1) {
+                            NewGardenView(numberOfPages: $numberOfPages, currentPage: $currentPage)
+                        } else {
+                            GardenView(pageNumber: index)
+                                .tag(index)
+                        }
+                    }
+                }
+            }
+            .tabViewStyle(PageTabViewStyle(indexDisplayMode: .always))
+            .ignoresSafeArea()
         }
-        .padding()
     }
 }
 
-#Preview {
-    ContentView()
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView()
+    }
 }
+
+

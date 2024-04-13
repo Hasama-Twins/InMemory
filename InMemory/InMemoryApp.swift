@@ -11,7 +11,8 @@ import SwiftUI
 struct InMemoryApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            TempContentView()
+                .environmentObject(ImageManager())
         }
     }
 }

@@ -9,10 +9,27 @@ import SwiftUI
 
 struct GardenView: View {
     let pageNumber: Int
+    @State private var currentBackground = Background.daytime
     
     var body: some View {
-        Text("Page \(pageNumber + 1) Content")
-            .foregroundColor(.white)
-            .font(.largeTitle)
+        ZStack {
+            currentBackground.makeGradient()
+                .ignoresSafeArea()
+            
+            Text("Page \(pageNumber + 1) Content")
+                .foregroundColor(.white)
+                .font(.largeTitle)
+            
+        }.onTapGesture {
+            // Change the background option when tapped
+            switch currentBackground {
+            case .daytime:
+                currentBackground = .nighttime
+            case .nighttime:
+                currentBackground = .sunset
+            case .sunset:
+                currentBackground = .daytime
+            }
+        }
     }
 }

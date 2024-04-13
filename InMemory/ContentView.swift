@@ -10,11 +10,11 @@ import SwiftUI
 struct ContentView: View {
     @State private var numberOfPages = 0
     @State private var currentPage = 0
-    @State private var currentBackground = Background.nighttime
+    
     
     var body: some View {
         ZStack {
-            currentBackground.makeGradient()
+            Background.daytime.makeGradient()
                 .ignoresSafeArea()
             
             TabView(selection: $currentPage) {
@@ -34,17 +34,6 @@ struct ContentView: View {
             }
             .tabViewStyle(PageTabViewStyle(indexDisplayMode: .always))
             .ignoresSafeArea()
-            .onTapGesture {
-                // Change the background option when tapped
-                switch currentBackground {
-                case .daytime:
-                    currentBackground = .nighttime
-                case .nighttime:
-                    currentBackground = .sunset
-                case .sunset:
-                    currentBackground = .daytime
-                }
-            }
         }
     }
 }

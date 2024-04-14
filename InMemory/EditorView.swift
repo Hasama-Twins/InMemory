@@ -12,6 +12,7 @@ import PhotosUI
 struct EditorView: View {
     @ObservedObject var gardenData: GardenData
     @Binding var showModal: Bool
+    var pin: String
     var background: Background
 
     @State private var selectedItems = [PhotosPickerItem]()
@@ -31,6 +32,9 @@ struct EditorView: View {
                         TextField("Name", text: $newName)
                         DatePicker("Birthdate", selection: $newBirthdate, displayedComponents: .date)
                         DatePicker("Date of Passing", selection: $newDateOfDeath, displayedComponents: .date)
+                    }
+                    Section(header: Text("Share with Others")) {
+                        Text("PIN: \(pin)")
                     }
                     Section(header: Text("Photos")) {
                         // Render photos from gardenData.photoIds
@@ -74,12 +78,22 @@ struct EditorView: View {
                     trailing: Button("Save") {
                         // Save person details
                         gardenData.name = newName
-                        showModal = false
+                        gardenData.bday = newBirthdate
+                        gardenData.dday = newDateOfDeath
+                        FirebaseHelper.updateMemorial(documentId: gardenData.documentId ?? "", updatedData: gardenData) { error in
+                            if let error = error {
+                                print("Error updating memorial: \(error.localizedDescription)")
+                            } else {
+                                showModal = false
+                            }
+                        }
                     }
                 )
                 .onAppear {
                     // Initialize temporary properties with original values
                     newName = gardenData.name
+                    newBirthdate = gardenData.bday
+                    newDateOfDeath = gardenData.dday
                     selectedImages = [] // TODO: fetch from cloud?
                 }
             }
@@ -88,5 +102,5 @@ struct EditorView: View {
 }
 
 #Preview {
-    EditorView(gardenData: GardenData(), showModal: .constant(true), background: .daytime)
+    EditorView(gardenData: GardenData(), showModal: .constant(true), pin: "2000", background: .daytime)
 }

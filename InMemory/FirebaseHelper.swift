@@ -65,13 +65,13 @@ struct FirebaseHelper {
         let gardenData = GardenData()
         let pin: String = gardenData.pin
         do {
-            let gardenDataJson = try JSONEncoder().encode(gardenData)
-            guard let gardenDataDict = try JSONSerialization.jsonObject(with: gardenDataJson, options: []) as? [String: Any] else {
-                print("Error encoding gardenData to JSON")
-                completion(nil)
-                return
-            }
-
+            let gardenDataDict: [String: Any] = [
+                "name": gardenData.name,
+                "photoIds": gardenData.photoIds,
+                "bday": gardenData.bday,
+                "dday": gardenData.dday,
+                "pin": gardenData.pin
+            ]
             // Add a new document with a generated ID
             db.collection("memorial").addDocument(data: gardenDataDict) { err in
                 if let err = err {
@@ -103,15 +103,15 @@ struct FirebaseHelper {
         guard let name = data["name"] as? String,
               let pin = data["pin"] as? String,
 //              let photoIds = data["photoIds"] as? [String],
-              let bday = data["bday"] as? String,
-              let dday = data["dday"] as? String else {
+              let bday = (data["bday"] as? Timestamp)?.dateValue(),
+              let dday = (data["dday"] as? Timestamp)?.dateValue()  else {
             print("returning during extract")
             // Required data is missing or has incorrect format
             return nil
         }
 
         // Create and return GardenData object
-        return GardenData(pin: pin, name: name, photoIds: [], bday: bday, dday: dday)
+        return GardenData(pin: pin, name: name, photoIds: [], bday: bday, dday: dday, documentId: document.documentID)
     }
 
     static func getGardenData(pin: String, completion: @escaping (GardenData?) -> Void) {
@@ -127,6 +127,30 @@ struct FirebaseHelper {
                     print("failed to parse json to GardenData")
                     completion(nil) // Call completion handler with nil to indicate failure
                 }
+            }
+        }
+    }
+
+    // Update an existing memorial with the provided documentId
+    static func updateMemorial(documentId: String, updatedData: GardenData, completion: @escaping (Error?) -> Void) {
+
+        // Convert GardenData to a dictionary
+        let gardenDataDict: [String: Any] = [
+            "name": updatedData.name,
+            "photoIds": updatedData.photoIds,
+            "bday": updatedData.bday,
+            "dday": updatedData.dday
+            // Add any other fields you want to update
+        ]
+
+        // Update the memorial document with the provided data
+        db.collection("memorial").document(documentId).setData(gardenDataDict, merge: true) { error in
+            if let error = error {
+                print("Error updating memorial: \(error.localizedDescription)")
+                completion(error)
+            } else {
+                print("Memorial updated successfully with id \(documentId)")
+                completion(nil)
             }
         }
     }

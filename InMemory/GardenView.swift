@@ -13,7 +13,6 @@ struct GardenView: View {
     let pageNumber: Int
     var memorialPin: String
     @ObservedObject var gardenDataFetcher = GardenDataFetcher()
-    @ObservedObject var gardenData: GardenData = GardenData()
     @State private var currentBackground = Background.daytime
     @State private var showModal1 = false
     @State private var showModal2 = false
@@ -37,8 +36,8 @@ struct GardenView: View {
 
             VStack {
                 Text(gardenDataFetcher.gardenData?.name ?? "Unknown Name")
-                Text(gardenDataFetcher.gardenData?.bday ?? "? Birthday")
-                Text(gardenDataFetcher.gardenData?.dday ?? "? Deathday")
+                Text(GardenData.formattedDate(date: gardenDataFetcher.gardenData?.bday ?? Date()))
+                Text(GardenData.formattedDate(date: gardenDataFetcher.gardenData?.dday ?? Date()))
             }
             .foregroundColor(.white)
             .font(.custom("Marker Felt", size: 22))
@@ -51,7 +50,7 @@ struct GardenView: View {
                    showModal1 = true
                }
                .sheet(isPresented: $showModal1) {
-                   EditorView(gardenData: gardenDataFetcher.gardenData ?? GardenData(), showModal: $showModal1, background: currentBackground)
+                   EditorView(gardenData: gardenDataFetcher.gardenData ?? GardenData(), showModal: $showModal1, pin: gardenDataFetcher.gardenData?.pin ?? "0000", background: currentBackground)
                }
                Spacer()
                ActionButton(icon: "lightbulb") {

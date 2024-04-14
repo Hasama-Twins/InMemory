@@ -8,12 +8,13 @@
 import Foundation
 import UIKit
 
-class GardenData: ObservableObject, Encodable {
+class GardenData: ObservableObject {
     var pin: String
     var name: String
     var photoIds: [String]
-    var bday: String
-    var dday: String
+    var bday: Date
+    var dday: Date
+    var documentId: String?
 
     init() {
         // Generate a random 4-digit PIN
@@ -21,29 +22,17 @@ class GardenData: ObservableObject, Encodable {
         self.name = "First Last"
         self.photoIds = []
         let calendar = Calendar.current
-        self.bday = GardenData.formattedDate(date: calendar.date(byAdding: .year, value: -10, to: Date())!)
-        self.dday = GardenData.formattedDate(date: Date())
+        self.bday = calendar.date(byAdding: .year, value: -10, to: Date())!
+        self.dday = Date()
     }
 
-    init(pin: String, name: String, photoIds: [String], bday: String, dday: String) {
+    init(pin: String, name: String, photoIds: [String], bday: Date, dday: Date, documentId: String) {
         self.pin = pin
         self.name = name
         self.photoIds = photoIds
         self.bday = bday
         self.dday = dday
-    }
-
-    enum CodingKeys: String, CodingKey {
-        case pin, name, photoIds, bday, dday
-    }
-
-    func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(pin, forKey: .pin)
-        try container.encode(name, forKey: .name)
-        try container.encode(photoIds, forKey: .photoIds)
-        try container.encode(bday, forKey: .bday)
-        try container.encode(dday, forKey: .dday)
+        self.documentId = documentId
     }
 
     static func formattedDate(date: Date) -> String {

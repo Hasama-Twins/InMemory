@@ -64,7 +64,7 @@ struct GardenView: View {
                    showModal3 = true
                }
                .sheet(isPresented: $showModal3) {
-                   JournalView(background: currentBackground)
+                   JournalView(background: currentBackground, pin: memorialPin)
                }
                Spacer()
            }.position(CGPoint(x: 200, y: 700.0))

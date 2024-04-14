@@ -28,7 +28,7 @@ struct ResourcesView: View {
                     // Display each paragraph with the first sentence bolded
                     ParagraphView(
                         firstSentence: "Take care of yourself.",
-                        remainingText: "Try to exercise regularly, eat healthy food, and get enough sleep." +
+                        remainingText: "Try to exercise regularly, eat healthy food, and get enough sleep. " +
                             "Avoid habits that can put your health at risk, like drinking too much alcohol or smoking."
                     ).foregroundColor(textColor)
 
@@ -44,7 +44,7 @@ struct ResourcesView: View {
 
                     ParagraphView(
                         firstSentence: "Join a grief support group in person or online.",
-                        remainingText: "It might help to talk with others who are also grieving." +
+                        remainingText: "It might help to talk with others who are also grieving. " +
                             "Check with your local hospice, hospitals, religious communities, and government agencies to find a group in your area."
                     ).foregroundColor(textColor)
 

@@ -11,13 +11,29 @@ struct Note: Identifiable {
     let id = UUID()
     var text: String
     var date: Date
+    var pin: String
 }
 
 struct JournalView: View {
     var background: Background
+    var pin: String
     @State private var notes: [Note] = [Note]()
     // Binding for the text in the blank note
     @State private var blankNoteText: String = ""
+
+    private func fetchNotes() {
+            JournalFirebaseHelper.shared.getNotes(for: pin) { notes in
+                self.notes = notes
+            }
+        }
+
+    private func saveNote(note: Note) {
+        if note.text.isEmpty { return }
+
+        JournalFirebaseHelper.shared.addNote(note, for: pin) {
+                fetchNotes()
+            }
+        }
 
     var body: some View {
         ZStack {
@@ -50,8 +66,8 @@ struct JournalView: View {
                                 .padding(.vertical, 50)
                                 .background(
                                     Rectangle()
-                                        .fill(Color.white) // Set the background color to white
-                                        .cornerRadius(10) // Set corner radius for rounded corners (optional)
+                                        .fill(Color.white)
+                                        .cornerRadius(10)
                                         .padding()
                                         .frame(width: 350)
                                 )
@@ -67,17 +83,20 @@ struct JournalView: View {
                 // Button to save note
                 Button("Save Note") {
                     if blankNoteText != "" {
-                        // Add the blank note to the notes array
-                        notes.insert(Note(text: blankNoteText, date: Date()), at: 0)
+
+                        saveNote(note: Note(text: blankNoteText, date: Date(), pin: pin))
+
                         // Clear the text in the blank note
                         blankNoteText = ""
                     }}.padding().foregroundColor(background == .nighttime ? .white : .blue)
             }
             .ignoresSafeArea()
+        }.onAppear {
+            fetchNotes()
         }
     }
 }
 
 #Preview {
-    JournalView(background: .nighttime)
+    JournalView(background: .nighttime, pin: "0000")
 }

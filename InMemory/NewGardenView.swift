@@ -15,57 +15,61 @@ struct NewGardenView: View {
     @State private var pin: String = ""
 
     var body: some View {
-        VStack {
-            Button(action: {
-                FirebaseHelper.newGardenPin { newPin in
-                    if let pin = newPin {
-                        print("New pin generated:", pin)
-                        createPageWithPin(pin: pin)
-                    } else {
-                        print("Failed to generate pin.")
-                    }
-                }
-            }) {
-                Text("Add Page")
-                    .foregroundColor(.white)
-                    .padding()
-                    .background(Color.green)
-                    .cornerRadius(8)
-            }
-            Spacer().frame(height: 50)
-            Button(action: {
-                isJoiningMemorial.toggle()
-            }) {
-                Text("Join Memorial")
-                    .foregroundColor(.white)
-                    .padding()
-                    .background(Color.blue)
-                    .cornerRadius(8)
-            }
-            if isJoiningMemorial {
-                HStack {
-                    TextField("Enter PIN", text: $pin)
-                        .padding(10) // Add padding to the text field
-                        .font(.system(size: 20)) // Set font size to 20
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                        .frame(width: 150) // Set width of the text field
-                        .keyboardType(.numberPad)
-                    Button(action: {
-                                        // Submit PIN action
-                        FirebaseHelper.verifyMemorial(pin: pin) { success in
-                            if success {
-                                print("Memorial verified.")
-                                createPageWithPin(pin: pin)
-                            } else {
-                                print("Memorial not found.")
-                            }
+        ZStack {
+            GrassView()
+
+            VStack {
+                Button(action: {
+                    FirebaseHelper.newGardenPin { newPin in
+                        if let pin = newPin {
+                            print("New pin generated:", pin)
+                            createPageWithPin(pin: pin)
+                        } else {
+                            print("Failed to generate pin.")
                         }
-                                    }) {
-                                        Image(systemName: "arrow.right.circle.fill")
-                                            .font(.title)
-                                            .foregroundColor(.blue)
-                                            .padding()
-                                    }
+                    }
+                }) {
+                    Text("Add Page")
+                        .foregroundColor(.white)
+                        .padding()
+                        .background(Color.green)
+                        .cornerRadius(8)
+                }
+                Spacer().frame(height: 50)
+                Button(action: {
+                    isJoiningMemorial.toggle()
+                }) {
+                    Text("Join Memorial")
+                        .foregroundColor(.white)
+                        .padding()
+                        .background(Color.blue)
+                        .cornerRadius(8)
+                }
+                if isJoiningMemorial {
+                    HStack {
+                        TextField("Enter PIN", text: $pin)
+                            .padding(10) // Add padding to the text field
+                            .font(.system(size: 20)) // Set font size to 20
+                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                            .frame(width: 150) // Set width of the text field
+                            .keyboardType(.numberPad)
+                        Button(action: {
+                            // Submit PIN action
+                            FirebaseHelper.verifyMemorial(pin: pin) { success in
+                                if success {
+                                    print("Memorial verified.")
+                                    createPageWithPin(pin: pin)
+                                } else {
+                                    print("Memorial not found.")
+                                }
+                            }
+                        }) {
+                            Image(systemName: "arrow.right.circle.fill")
+                                .font(.title)
+                                .foregroundColor(.blue)
+                                .padding()
+                        }
+                    }
                 }
             }
         }

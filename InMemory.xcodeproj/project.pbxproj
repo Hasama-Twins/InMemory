@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2712811C2BCBC2E4000F13E5 /* JournalFirebaseHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2712811B2BCBC2E4000F13E5 /* JournalFirebaseHelper.swift */; };
 		27419E772BCB38320041C1DD /* InMemoryApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27419E762BCB38320041C1DD /* InMemoryApp.swift */; };
 		27419E792BCB38320041C1DD /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27419E782BCB38320041C1DD /* ContentView.swift */; };
 		27419E7B2BCB38340041C1DD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 27419E7A2BCB38340041C1DD /* Assets.xcassets */; };
@@ -31,6 +32,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2712811B2BCBC2E4000F13E5 /* JournalFirebaseHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalFirebaseHelper.swift; sourceTree = "<group>"; };
 		27419E732BCB38320041C1DD /* InMemory.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = InMemory.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		27419E762BCB38320041C1DD /* InMemoryApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InMemoryApp.swift; sourceTree = "<group>"; };
 		27419E782BCB38320041C1DD /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -102,6 +104,7 @@
 				27419E7A2BCB38340041C1DD /* Assets.xcassets */,
 				27419E7C2BCB38340041C1DD /* Preview Content */,
 				4B66E93F2BCBA88E00570E87 /* FirebaseHelper.swift */,
+				2712811B2BCBC2E4000F13E5 /* JournalFirebaseHelper.swift */,
 				4B66E9412BCBB0E800570E87 /* GardenDataFetcher.swift */,
 			);
 			path = InMemory;
@@ -218,6 +221,7 @@
 			files = (
 				4B66E9402BCBA88E00570E87 /* FirebaseHelper.swift in Sources */,
 				27419E8B2BCB578E0041C1DD /* ResourcesView.swift in Sources */,
+				2712811C2BCBC2E4000F13E5 /* JournalFirebaseHelper.swift in Sources */,
 				27419E952BCB8AF20041C1DD /* CandleView.swift in Sources */,
 				27419E892BCB478B0041C1DD /* Backgrounds.swift in Sources */,
 				27419E8F2BCB57D10041C1DD /* JournalView.swift in Sources */,

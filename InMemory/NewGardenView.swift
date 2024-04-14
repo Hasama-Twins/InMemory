@@ -28,7 +28,6 @@ struct NewGardenView: View {
                             .font(.system(size: 20))
                             .textFieldStyle(RoundedBorderTextFieldStyle())
                             .frame(width: 190)
-                            .keyboardType(.numberPad)
                         Button(action: {
                             self.isEditing = false
                         }) {

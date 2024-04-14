@@ -30,8 +30,9 @@ class JournalFirebaseHelper {
                         let text = noteData["text"] as? String ?? "Default text"
                         let date = (noteData["date"] as? Timestamp)?.dateValue() ?? Date()
                         let pin = noteData["pin"] as? String ?? "Default pin"
+                        let user = noteData["user"] as? String ?? "Default user"
 
-                        notes.append(Note(text: text, date: date, pin: pin))
+                        notes.append(Note(text: text, date: date, pin: pin, user: user))
                     }
                     completion(notes)
                 }
@@ -42,7 +43,8 @@ class JournalFirebaseHelper {
         db.collection("journal").addDocument(data: [
             "text": note.text,
             "date": note.date,
-            "pin": filterPin
+            "pin": filterPin,
+            "user": note.user
         ]) { error in
             if let error = error {
                 print("Error adding document: \(error)")

@@ -12,9 +12,11 @@ struct Note: Identifiable {
     var text: String
     var date: Date
     var pin: String
+    var user: String
 }
 
 struct JournalView: View {
+    @EnvironmentObject var userSettings: UserSettings
     var background: Background
     var pin: String
     @State private var notes: [Note] = [Note]()
@@ -22,18 +24,18 @@ struct JournalView: View {
     @State private var blankNoteText: String = ""
 
     private func fetchNotes() {
-            JournalFirebaseHelper.shared.getNotes(for: pin) { notes in
-                self.notes = notes
-            }
+        JournalFirebaseHelper.shared.getNotes(for: pin) { notes in
+            self.notes = notes
         }
+    }
 
     private func saveNote(note: Note) {
         if note.text.isEmpty { return }
 
         JournalFirebaseHelper.shared.addNote(note, for: pin) {
-                fetchNotes()
-            }
+            fetchNotes()
         }
+    }
 
     var body: some View {
         ZStack {
@@ -64,42 +66,64 @@ struct JournalView: View {
                         ForEach(notes) { note in
                             VStack {
                                 Text(note.text)
-                                .padding(.vertical, 50)
-                                .font(.custom("Gill Sans", size: 18))
-                                .background(
-                                    Rectangle()
-                                        .fill(Color.white)
-                                        .cornerRadius(10)
-                                        .padding()
-                                        .frame(width: 350)
+                                    .padding(.vertical, 50)
+                                    .font(.custom("Gill Sans", size: 18))
+                                    .background(
+                                        Rectangle()
+                                            .fill(Color.white)
+                                            .cornerRadius(10)
+                                            .padding()
+                                            .frame(width: 350)
+                                    )
 
-                                )
-                                Text(note.date.formatted()) // Display formatted date
+                                HStack {
+                                    Text({
+                                        let dateFormatter = DateFormatter()
+                                        dateFormatter.dateFormat = "MMM d, h:mm a"
+                                        let formattedDateAndHour = dateFormatter.string(from: note.date)
+                                        return formattedDateAndHour
+                                    }())
                                     .font(.custom("Gill Sans", size: 14))
                                     .foregroundColor(.gray)
+
+                                    Text("by \(note.user)")
+                                        .font(.custom("Gill Sans", size: 14))
+                                        .foregroundColor(.gray)
+                                }
                             }
                         }
+                        }
+                        .padding()
                     }
-                    .padding()
+
+                    // Button to save note
+                    Button("Save Note") {
+                        if blankNoteText != "" {
+
+                            saveNote(note: Note(text: blankNoteText, date: Date(), pin: pin, user: userSettings.username))
+
+                            // Clear the text in the blank note
+                            blankNoteText = ""
+                        }}.padding(.vertical, 30).foregroundColor(background == .nighttime ? .white : .blue)
                 }
-
-                // Button to save note
-                Button("Save Note") {
-                    if blankNoteText != "" {
-
-                        saveNote(note: Note(text: blankNoteText, date: Date(), pin: pin))
-
-                        // Clear the text in the blank note
-                        blankNoteText = ""
-                    }}.padding().foregroundColor(background == .nighttime ? .white : .blue)
+                .ignoresSafeArea()
+            }.onAppear {
+                fetchNotes()
             }
-            .ignoresSafeArea()
-        }.onAppear {
-            fetchNotes()
+            .onTapGesture {
+                UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+            }
         }
     }
-}
 
-#Preview {
-    JournalView(background: .nighttime, pin: "0000")
+struct JournalView_Previews: PreviewProvider {
+    static var previews: some View {
+        // Create a UserSettings object
+        let userSettings = UserSettings()
+        userSettings.username = "Summer" // Set the desired username
+
+        // Provide the UserSettings object to the preview
+        return JournalView(background: .nighttime, pin: "0000")
+            .environmentObject(userSettings)
+    }
 }

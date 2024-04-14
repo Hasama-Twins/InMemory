@@ -39,7 +39,7 @@ struct NewGardenView: View {
                     }
                 } else {
                     Text("Hi, \(userSettings.username)")
-                        .font(.custom("Gill Sans", size:24))
+                        .font(.custom("Gill Sans", size: 24))
                         .foregroundColor(.white)
                 }
 

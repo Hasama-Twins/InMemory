@@ -21,8 +21,12 @@ struct CloudView: View {
                 .offset(x: xOffset, y: -300)
                 .animation(Animation.linear(duration: 40).repeatForever(autoreverses: false)) // Adjust duration here
                 .onAppear {
-                    self.xOffset = UIScreen.main.bounds.width / 2 + 250
-                }
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                            withAnimation {
+                                self.xOffset = UIScreen.main.bounds.width / 2 + 250
+                            }
+                        }
+                    }
             Spacer()
         }
     }

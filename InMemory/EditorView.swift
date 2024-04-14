@@ -58,7 +58,6 @@ struct EditorView: View {
                             newValues in
                             Task {
                                 // convert picked items to images
-                                selectedImages = []
                                 for value in newValues {
                                     if let imageData = try? await value.loadTransferable(type: Data.self), let image = UIImage(data: imageData) {
                                         addAndSaveImages(image: image)

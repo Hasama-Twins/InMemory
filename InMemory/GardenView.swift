@@ -51,21 +51,21 @@ struct GardenView: View {
                    showModal1 = true
                }
                .sheet(isPresented: $showModal1) {
-                   EditorView(gardenData: gardenDataFetcher.gardenData ?? GardenData(), showModal: $showModal1)
+                   EditorView(gardenData: gardenDataFetcher.gardenData ?? GardenData(), showModal: $showModal1, background: currentBackground)
                }
                Spacer()
                ActionButton(icon: "lightbulb") {
                    showModal2 = true
                }
                .sheet(isPresented: $showModal2) {
-                   ResourcesView()
+                   ResourcesView(background: currentBackground)
                }
                Spacer()
                ActionButton(icon: "note.text") {
                    showModal3 = true
                }
                .sheet(isPresented: $showModal3) {
-                   JournalView()
+                   JournalView(background: currentBackground)
                }
                Spacer()
            }.position(CGPoint(x: 200, y: 700.0))

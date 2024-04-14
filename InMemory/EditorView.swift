@@ -30,7 +30,7 @@ struct EditorView: View {
                 Form {
                     Section(header: Text("Memorial Details")) {
                         TextField("Name", text: $newName)
-                        DatePicker("Birthdate", selection: $newBirthdate, displayedComponents: .date)
+                        DatePicker("Birthday", selection: $newBirthdate, displayedComponents: .date)
                         DatePicker("Date of Passing", selection: $newDateOfDeath, displayedComponents: .date)
                     }
                     Section(header: Text("Share with Others")) {
@@ -53,7 +53,7 @@ struct EditorView: View {
                                 .foregroundColor(.secondary)
                         }
                         PhotosPicker(selection: $selectedItems, matching: .any(of: [.images, .not(.videos)])) {
-                            Label("Edit Photos", systemImage: "idk")
+                            Label("Edit Photos", systemImage: "pencil")
                         }.onChange(of: selectedItems) {
                             newValues in
                             Task {

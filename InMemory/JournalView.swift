@@ -8,11 +8,20 @@
 import SwiftUI
 
 struct JournalView: View {
+    var background: Background
+
     var body: some View {
-        Text("Journal")
+        ZStack {
+            background.makeGradient()
+
+            Text("Journal View")
+                .foregroundColor(.white)
+                .font(.title)
+        }
+        .ignoresSafeArea()
     }
 }
 
 #Preview {
-    JournalView()
+    JournalView(background: .daytime)
 }

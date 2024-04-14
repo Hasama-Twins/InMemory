@@ -61,7 +61,6 @@ struct EditorView: View {
                                 selectedImages = []
                                 for value in newValues {
                                     if let imageData = try? await value.loadTransferable(type: Data.self), let image = UIImage(data: imageData) {
-                                        selectedImages.append(image)
                                         addAndSaveImages(image: image)
                                     }
                                 }

@@ -17,9 +17,9 @@ struct ImageFirebaseHelper {
         let childRef = storageRef.child(path)
 
         // Download the image data from Firebase Storage
-        storageRef.getData(maxSize: 1 * 1024 * 1024) { data, error in
-            if let error = error {
-                print("Error downloading image: \(error.localizedDescription)")
+        childRef.getData(maxSize: 1 * 1024 * 1024) { data, error in
+            if error != nil || data == nil {
+                print("Error downloading image or no data")
                 completion(nil)
             } else if let imageData = data, let image = UIImage(data: imageData) {
                 // If the image data is successfully downloaded, create UIImage
@@ -38,6 +38,7 @@ struct ImageFirebaseHelper {
             print("Failed to convert image to JPEG data")
             return
         }
+        print("putData \(imageData)")
         let path = "images/\(UUID().uuidString).jpg"
         let fileRef = storageRef.child(path)
         let uploadTask = fileRef.putData(imageData, metadata: nil) { metadata, error in

@@ -22,6 +22,17 @@ struct GardenView: View {
             currentBackground.makeGradient()
                 .ignoresSafeArea()
             
+            Image("treeTrunk").resizable()
+                .frame(width: 250, height: 900)
+            
+            Image("greenLeaves").resizable()
+                .frame(width: 600, height: 400)
+                .offset(x: 0, y: -300)
+            
+            Text("Page \(pageNumber + 1) Content")
+                .foregroundColor(.white)
+                .font(.largeTitle)
+            
             VStack {
                 
                 Text("Page \(pageNumber + 1) Content")
@@ -78,7 +89,7 @@ struct GardenView: View {
                     Spacer()
                 }
                 
-                Spacer().frame(height: 40) // Adjust spacing as needed
+                Spacer().frame(height: 70) // Adjust spacing as needed
             }
         }.onTapGesture {
             // Change the background option when tapped

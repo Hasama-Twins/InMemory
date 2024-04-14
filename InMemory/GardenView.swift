@@ -22,11 +22,19 @@ struct GardenView: View {
             currentBackground.makeGradient()
                 .ignoresSafeArea()
             
+            StoneGrassView()
+            FlowerView().position(CGPoint(x: 100, y: 550.0)) //left
+            FlowerView().position(CGPoint(x: 300, y: 550.0)) //right
+            CandleView().position(CGPoint(x: 200, y: 550.0)) 
+            
+            
             VStack {
+                
+                Spacer()
                 
                 Text("Page \(pageNumber + 1) Content")
                     .foregroundColor(.white)
-                    .font(.largeTitle)
+                    .font(.custom("Marker Felt", size: 28))
                 
                 Spacer()
                 
@@ -52,7 +60,7 @@ struct GardenView: View {
                             Text("Date of Death: \(gardenData.dday, formatter: dateFormatter)")
                         }
                         .foregroundColor(.white)
-                        .font(.title)
+                        .font(.custom("Marker Felt", size: 24))
                         .multilineTextAlignment(.center)
                 
                 Spacer()
@@ -94,7 +102,7 @@ struct GardenView: View {
                     Spacer()
                 }
                 
-                Spacer().frame(height: 40) // Adjust spacing as needed
+                Spacer().frame(height: 70) // Adjust spacing as needed
             }
         }.onTapGesture {
             // Change the background option when tapped

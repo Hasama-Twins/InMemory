@@ -26,44 +26,22 @@ struct GardenView: View {
             FlowerView().position(CGPoint(x: 300, y: 550.0)) // right
             CandleView().position(CGPoint(x: 200, y: 550.0))
 
-            VStack {
-
-                Spacer()
-
-                Text("Page \(pageNumber + 1) Content")
-                    .foregroundColor(.white)
-                    .font(.custom("Marker Felt", size: 28))
-
-                Spacer()
-
-                VStack {
-                    if gardenData.photoIds.isEmpty {
-//                        var _ = print("isempty")
-                        EmptySquareView().position(CGPoint(x: 200.0, y: 220.0))
-                    } else {
-                        // TODO: fetch images from cloud and render
-//                        Image(uiImage: StorageHelper.getImageFromUserDefaults(key: gardenData.photoIds[currentIndex]))
-//                            .resizable()
-//                            .scaledToFill()
-//                            .frame(width: 200, height: 200)
-//                            .cornerRadius(10)
-//                            .onTapGesture {
-//                                currentIndex = (currentIndex + 1) % gardenData.photoIds.count
-//                                print("Showing image at index:", currentIndex, " of indices", gardenData.photoIds.count - 1)
-//                            }
-                    }
-
-                    Text("Name: \(gardenData.name)")
-                    Text("Birthdate: \(gardenData.bday, formatter: dateFormatter)")
-                    Text("Date of Death: \(gardenData.dday, formatter: dateFormatter)")
-
-                }
-                .foregroundColor(.white)
-                .font(.custom("Marker Felt", size: 24))
-                .multilineTextAlignment(.center)
-
-                Spacer().frame(height: 70) // Adjust spacing as needed
+            
+            if gardenData.photoIds.isEmpty {
+                EmptySquareView().position(CGPoint(x: 200.0, y: 260.0))
+            } else {
+                // Render images from cloud, look page bottom
             }
+            
+            VStack {
+                Text("\(gardenData.name)")
+                Text("\(gardenData.bday, formatter: dateFormatter)")
+                Text("\(gardenData.dday, formatter: dateFormatter)")
+            }
+            .foregroundColor(.white)
+            .font(.custom("Marker Felt", size: 22))
+            .multilineTextAlignment(.center)
+            .position(CGPoint(x: 200.0, y: 400.0))
 
             HStack {
                Spacer()
@@ -88,7 +66,7 @@ struct GardenView: View {
                    JournalView()
                }
                Spacer()
-           }.position(CGPoint(x: 200, y: 740.0))
+           }.position(CGPoint(x: 200, y: 700.0))
 
         }.onTapGesture {
             // Change the background option when tapped
@@ -125,3 +103,14 @@ struct GardenView_Previews: PreviewProvider {
         GardenView(pageNumber: 1, gardenData: GardenData())
     }
 }
+
+// TODO: fetch images from cloud and render
+//                        Image(uiImage: StorageHelper.getImageFromUserDefaults(key: gardenData.photoIds[currentIndex]))
+//                            .resizable()
+//                            .scaledToFill()
+//                            .frame(width: 200, height: 200)
+//                            .cornerRadius(10)
+//                            .onTapGesture {
+//                                currentIndex = (currentIndex + 1) % gardenData.photoIds.count
+//                                print("Showing image at index:", currentIndex, " of indices", gardenData.photoIds.count - 1)
+//                            }

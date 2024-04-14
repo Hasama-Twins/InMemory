@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2712811C2BCBC2E4000F13E5 /* JournalFirebaseHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2712811B2BCBC2E4000F13E5 /* JournalFirebaseHelper.swift */; };
+		271281202BCBD6EE000F13E5 /* CloudView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2712811F2BCBD6EE000F13E5 /* CloudView.swift */; };
 		27419E772BCB38320041C1DD /* InMemoryApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27419E762BCB38320041C1DD /* InMemoryApp.swift */; };
 		27419E792BCB38320041C1DD /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27419E782BCB38320041C1DD /* ContentView.swift */; };
 		27419E7B2BCB38340041C1DD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 27419E7A2BCB38340041C1DD /* Assets.xcassets */; };
@@ -33,6 +34,7 @@
 
 /* Begin PBXFileReference section */
 		2712811B2BCBC2E4000F13E5 /* JournalFirebaseHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalFirebaseHelper.swift; sourceTree = "<group>"; };
+		2712811F2BCBD6EE000F13E5 /* CloudView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudView.swift; sourceTree = "<group>"; };
 		27419E732BCB38320041C1DD /* InMemory.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = InMemory.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		27419E762BCB38320041C1DD /* InMemoryApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InMemoryApp.swift; sourceTree = "<group>"; };
 		27419E782BCB38320041C1DD /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -100,6 +102,7 @@
 				27419E8E2BCB57D10041C1DD /* JournalView.swift */,
 				27419E922BCB89A90041C1DD /* StoneGrassView.swift */,
 				27419E962BCB907F0041C1DD /* CircleButtonView.swift */,
+				2712811F2BCBD6EE000F13E5 /* CloudView.swift */,
 				27419E942BCB8AF20041C1DD /* CandleView.swift */,
 				27419E7A2BCB38340041C1DD /* Assets.xcassets */,
 				27419E7C2BCB38340041C1DD /* Preview Content */,
@@ -231,6 +234,7 @@
 				27419E792BCB38320041C1DD /* ContentView.swift in Sources */,
 				27419E852BCB3B630041C1DD /* GardenView.swift in Sources */,
 				4B66E9422BCBB0E800570E87 /* GardenDataFetcher.swift in Sources */,
+				271281202BCBD6EE000F13E5 /* CloudView.swift in Sources */,
 				27419E912BCB6B9D0041C1DD /* FlowerView.swift in Sources */,
 				27419E932BCB89A90041C1DD /* StoneGrassView.swift in Sources */,
 				27419E972BCB907F0041C1DD /* CircleButtonView.swift in Sources */,

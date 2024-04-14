@@ -1,0 +1,12 @@
+# Xcode
+xcuserdata/
+xcworkspace/
+
+# Xcode Schemes
+xcschemes/
+xcschememanagement.plist
+
+# User Interface State
+UserInterfaceState.xcuserstate
+
+.DS_Store

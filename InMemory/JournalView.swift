@@ -65,7 +65,7 @@ struct JournalView: View {
                         notes.insert(Note(text: blankNoteText), at: 0)
                         // Clear the text in the blank note
                         blankNoteText = ""
-                    }}.padding()
+                    }}.padding().foregroundColor(background == .nighttime ? .white : .blue)
             }
             .ignoresSafeArea()
         }
@@ -73,5 +73,5 @@ struct JournalView: View {
 }
 
 #Preview {
-    JournalView(background: .daytime)
+    JournalView(background: .nighttime)
 }

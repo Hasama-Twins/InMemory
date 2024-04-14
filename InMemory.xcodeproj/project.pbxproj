@@ -99,12 +99,12 @@
 				27419E902BCB6B9D0041C1DD /* FlowerView.swift */,
 				27419E8E2BCB57D10041C1DD /* JournalView.swift */,
 				27419E922BCB89A90041C1DD /* StoneGrassView.swift */,
-				2712811B2BCBC2E4000F13E5 /* JournalFirebaseHelper.swift */,
 				27419E962BCB907F0041C1DD /* CircleButtonView.swift */,
 				27419E942BCB8AF20041C1DD /* CandleView.swift */,
 				27419E7A2BCB38340041C1DD /* Assets.xcassets */,
 				27419E7C2BCB38340041C1DD /* Preview Content */,
 				4B66E93F2BCBA88E00570E87 /* FirebaseHelper.swift */,
+				2712811B2BCBC2E4000F13E5 /* JournalFirebaseHelper.swift */,
 				4B66E9412BCBB0E800570E87 /* GardenDataFetcher.swift */,
 			);
 			path = InMemory;

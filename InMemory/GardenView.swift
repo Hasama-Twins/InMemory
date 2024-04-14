@@ -31,6 +31,22 @@ struct GardenView: View {
                 Spacer()
                 
                 VStack {
+                    if gardenData.photoIds.isEmpty {
+                        let _ = print("isempty")
+                        EmptySquareView()
+                    } else {
+                        // TODO: fetch images from cloud and render
+//                        Image(uiImage: StorageHelper.getImageFromUserDefaults(key: gardenData.photoIds[currentIndex]))
+//                            .resizable()
+//                            .scaledToFill()
+//                            .frame(width: 200, height: 200)
+//                            .cornerRadius(10)
+//                            .onTapGesture {
+//                                currentIndex = (currentIndex + 1) % gardenData.photoIds.count
+//                                print("Showing image at index:", currentIndex, " of indices", gardenData.photoIds.count - 1)
+//                            }
+                    }
+                    
                             Text("Name: \(gardenData.name)")
                             Text("Birthdate: \(gardenData.bday, formatter: dateFormatter)")
                             Text("Date of Death: \(gardenData.dday, formatter: dateFormatter)")
@@ -93,7 +109,15 @@ struct GardenView: View {
         }
     }
     
-    
+}
+
+struct EmptySquareView: View {
+    var body: some View {
+        Rectangle()
+            .fill(Color.gray)
+            .frame(width: 200, height: 200)
+            .cornerRadius(10)
+    }
 }
 
 struct CircleButton: View {

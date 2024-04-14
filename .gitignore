@@ -9,4 +9,6 @@ xcschememanagement.plist
 # User Interface State
 UserInterfaceState.xcuserstate
 
+Package.resolved
+
 .DS_Store

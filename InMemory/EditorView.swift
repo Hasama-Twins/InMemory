@@ -6,10 +6,15 @@
 //
 
 import SwiftUI
+import UIKit
+import PhotosUI
 
 struct EditorView: View {
     @ObservedObject var gardenData: GardenData
     @Binding var showModal: Bool
+    
+    @State private var selectedItems = [PhotosPickerItem]()
+    @State private var selectedImages = [UIImage]()
     
     // Properties to hold temporary values for the form
     @State private var newName: String = ""
@@ -24,8 +29,39 @@ struct EditorView: View {
                     DatePicker("Birthdate", selection: $newBirthdate,displayedComponents: .date)
                     DatePicker("Date of Death", selection: $newDateOfDeath, displayedComponents: .date)
                 }
+            Section(header: Text("Photos")) {
+                    // Render photos from gardenData.photoIds
+                    if !selectedImages.isEmpty {
+                        ScrollView(.horizontal) {
+                            HStack {
+                                ForEach(selectedImages, id: \.self) { img in
+                                    Image(uiImage: img)
+                                        .resizable()
+                                        .frame(width: 200, height: 200)
+                                }
+                            }
+                        }
+                    } else {
+                        Text("No photos available")
+                            .foregroundColor(.secondary)
+                    }
+                PhotosPicker(selection: $selectedItems, matching: .any(of: [.images, .not(.videos)])) {
+                    Label("Edit Photos", systemImage: "idk")
+                    }.onChange(of: selectedItems) {
+                        newValues in
+                        Task {
+                            // convert picked items to images
+                            selectedImages = []
+                            for value in newValues {
+                                if let imageData = try? await value.loadTransferable(type: Data.self), let image = UIImage(data: imageData) {
+                                    selectedImages.append(image)
+                                }
+                            }
+                        }
+                    }
+                }
             }
-            .navigationTitle("Add Person")
+            .navigationTitle("Edit Person")
             .navigationBarItems(
                 leading: Button("Cancel") {
                     showModal = false
@@ -43,6 +79,7 @@ struct EditorView: View {
                 newName = gardenData.name
                 newBirthdate = gardenData.bday
                 newDateOfDeath = gardenData.dday
+                selectedImages = [] // TODO: fetch from cloud?
             }
         }
     }

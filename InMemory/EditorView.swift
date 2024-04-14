@@ -69,16 +69,16 @@ struct EditorView: View {
                 trailing: Button("Save") {
                     // Save person details
                     gardenData.name = newName
-                    gardenData.bday = newBirthdate
-                    gardenData.dday = newDateOfDeath
+//                    gardenData.bday = newBirthdate
+//                    gardenData.dday = newDateOfDeath
                     showModal = false
                 }
             )
             .onAppear {
                 // Initialize temporary properties with original values
                 newName = gardenData.name
-                newBirthdate = gardenData.bday
-                newDateOfDeath = gardenData.dday
+//                newBirthdate = gardenData.bday
+//                newDateOfDeath = gardenData.dday
                 selectedImages = [] // TODO: fetch from cloud?
             }
         }

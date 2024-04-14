@@ -6,11 +6,14 @@
 //
 
 import SwiftUI
+import Firebase
 
 struct GardenView: View {
 
     let pageNumber: Int
-    @ObservedObject var gardenData: GardenData
+    var memorialPin: String
+    @ObservedObject var gardenDataFetcher = GardenDataFetcher()
+    @ObservedObject var gardenData: GardenData = GardenData()
     @State private var currentBackground = Background.daytime
     @State private var showModal1 = false
     @State private var showModal2 = false
@@ -26,17 +29,16 @@ struct GardenView: View {
             FlowerView().position(CGPoint(x: 300, y: 550.0)) // right
             CandleView().position(CGPoint(x: 200, y: 550.0))
 
-            
-            if gardenData.photoIds.isEmpty {
+            if (gardenDataFetcher.gardenData?.photoIds.isEmpty) != nil {
                 EmptySquareView().position(CGPoint(x: 200.0, y: 260.0))
             } else {
                 // Render images from cloud, look page bottom
             }
-            
+
             VStack {
-                Text("\(gardenData.name)")
-                Text("\(gardenData.bday, formatter: dateFormatter)")
-                Text("\(gardenData.dday, formatter: dateFormatter)")
+                Text(gardenDataFetcher.gardenData?.name ?? "Unknown Name")
+                Text(gardenDataFetcher.gardenData?.bday ?? "? Birthday")
+                Text(gardenDataFetcher.gardenData?.dday ?? "? Deathday")
             }
             .foregroundColor(.white)
             .font(.custom("Marker Felt", size: 22))
@@ -49,7 +51,7 @@ struct GardenView: View {
                    showModal1 = true
                }
                .sheet(isPresented: $showModal1) {
-                   EditorView(gardenData: gardenData, showModal: $showModal1)
+                   EditorView(gardenData: gardenDataFetcher.gardenData ?? GardenData(), showModal: $showModal1)
                }
                Spacer()
                ActionButton(icon: "lightbulb") {
@@ -79,6 +81,20 @@ struct GardenView: View {
                 currentBackground = .daytime
             }
         }
+        // Call getGardenData when the view appears
+        .onAppear {
+            // Call the async function to fetch garden data
+            FirebaseHelper.getGardenData(pin: memorialPin) { gardenData in
+                // Handle the retrieved garden data
+                if let gardenData = gardenData {
+                    // Update the observed object with the retrieved data
+                    self.gardenDataFetcher.gardenData = gardenData
+                } else {
+                    // Handle error or no data
+                    print("Failed to fetch garden data")
+                }
+            }
+        }
     }
 
 }
@@ -92,15 +108,9 @@ struct EmptySquareView: View {
     }
 }
 
-let dateFormatter: DateFormatter = {
-    let formatter = DateFormatter()
-    formatter.dateStyle = .long
-    return formatter
-}()
-
 struct GardenView_Previews: PreviewProvider {
     static var previews: some View {
-        GardenView(pageNumber: 1, gardenData: GardenData())
+        GardenView(pageNumber: 1, memorialPin: "2000")
     }
 }
 

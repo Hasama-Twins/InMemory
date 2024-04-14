@@ -2,6 +2,8 @@
 
 ### Purpose
 InMemory, works toward the Maker track and the Healthcare overlay. This project relates to the Tech for Good theme by using technology to support grieving individuals. It was developed using Swift and SwiftUI, with Firebase Firestore and Storage for storing journal entries, memorial details, and a shared candle. Canva was used for creating graphics.
+
+**Ethics**:
 This project is intentionally ethical in many ways. This app strives to protect users' data and confidentiality by storing each memorial in a secure cloud platform. Users also have control over who they share their memorials with their unique memorial PIN. To prevent harm within our project, we provide users with resources on grieving. To be inclusive of our users’ diverse cultural and personal beliefs surrounding grief and loss, we provide them with an open ended writing page where they can express themselves however they wish.
 
 ### Project Description

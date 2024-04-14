@@ -25,3 +25,12 @@ struct StoneGrassView: View {
 #Preview {
     StoneGrassView()
 }
+
+struct GrassView: View {
+    var body: some View {
+            Image("grass")
+                .resizable()
+                .frame(width: 400, height: 400)
+                .offset(x: 0, y: 340)
+    }
+}

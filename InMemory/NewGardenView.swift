@@ -25,7 +25,7 @@ struct NewGardenView: View {
                     HStack {
                         TextField("Enter Username", text: $userSettings.username)
                             .padding(10)
-                            .font(.system(size: 20))
+                            .font(.custom("Gill Sans", size: 18))
                             .textFieldStyle(RoundedBorderTextFieldStyle())
                             .frame(width: 190)
                         Button(action: {
@@ -39,7 +39,7 @@ struct NewGardenView: View {
                     }
                 } else {
                     Text("Hi, \(userSettings.username)")
-                        .font(.title)
+                        .font(.custom("Gill Sans", size:24))
                         .foregroundColor(.white)
                 }
 

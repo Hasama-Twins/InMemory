@@ -73,7 +73,7 @@ struct EditorView: View {
                 .navigationBarItems(
                     leading: Button("Cancel") {
                         showModal = false
-                    },
+                    }.font(.custom("Gill Sans", size: 18)),
                     trailing: Button("Save") {
                         // Save person details
                         gardenData.name = newName
@@ -86,7 +86,7 @@ struct EditorView: View {
                                 showModal = false
                             }
                         }
-                    }
+                    }.font(.custom("Gill Sans", size: 18))
                 )
                 .onAppear {
                     // Initialize temporary properties with original values
@@ -119,7 +119,7 @@ struct EditorView: View {
                     }
                 }
             }
-        }
+        }.font(.custom("Gill Sans", size: 18))
     }
 
     func addAndSaveImages(image: UIImage) {

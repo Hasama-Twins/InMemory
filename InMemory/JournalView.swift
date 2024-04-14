@@ -104,7 +104,7 @@ struct JournalView: View {
 
                             // Clear the text in the blank note
                             blankNoteText = ""
-                        }}.padding(.vertical, 30).foregroundColor(background == .nighttime ? .white : .blue)
+                        }}.padding(.vertical, 30).foregroundColor(background == .nighttime ? .white : .blue).font(.custom("Gill Sans", size: 18))
                 }
                 .ignoresSafeArea()
             }.onAppear {

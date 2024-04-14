@@ -14,8 +14,7 @@ class GardenData: ObservableObject {
     @Published var photoIds: [String]
     @Published var bday: Date
     @Published var dday: Date
-    
-    
+
     init() {
         self.key = UUID().uuidString
         self.name = "First Last"

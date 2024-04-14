@@ -9,12 +9,12 @@ import SwiftUI
 
 struct NewGardenView: View {
     @Binding var numberOfPages: Int
-    @Binding var currentPage: Int 
-    
+    @Binding var currentPage: Int
+
     var body: some View {
         Button(action: {
             numberOfPages += 1
-            currentPage = numberOfPages - 2 
+            currentPage = numberOfPages - 2
         }) {
             Text("Add Page")
                 .foregroundColor(.white)
@@ -24,4 +24,3 @@ struct NewGardenView: View {
         }
     }
 }
-

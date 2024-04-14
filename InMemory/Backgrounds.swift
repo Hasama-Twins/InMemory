@@ -11,7 +11,7 @@ enum Background {
     case daytime
     case nighttime
     case sunset
-    
+
     func makeGradient() -> LinearGradient {
         switch self {
         case .daytime:

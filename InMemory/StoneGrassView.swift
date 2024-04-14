@@ -13,11 +13,11 @@ struct StoneGrassView: View {
             Image("headstone")
                 .resizable()
                 .frame(width: 380, height: 500)
-                .offset(x:0, y:-50)
+                .offset(x: 0, y: -50)
             Image("grass")
                 .resizable()
                 .frame(width: 400, height: 400)
-                .offset(x:0, y:340)
+                .offset(x: 0, y: 340)
         }
     }
 }

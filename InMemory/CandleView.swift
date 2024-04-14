@@ -11,12 +11,11 @@ struct CandleView: View {
     @State private var candleOn = true
 
     var body: some View {
-        ZStack{
+        ZStack {
             Image(candleOn ? "candleOn" : "candleOff") // Use ternary operator to toggle between images
                 .resizable()
                 .frame(width: 100, height: 150)
-                
-            
+
             if candleOn {
                 Circle()
                     .fill(
@@ -28,7 +27,7 @@ struct CandleView: View {
                         )
                     )
                     .frame(width: 150, height: 150)
-                    .offset(x:0,y:-10)
+                    .offset(x: 0, y: -10)
             }
         }
         .onTapGesture {

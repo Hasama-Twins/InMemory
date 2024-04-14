@@ -10,19 +10,18 @@ import SwiftUI
 struct ContentView: View {
     @State private var numberOfPages = 0
     @State private var currentPage = 0
-    
-    
+
     var body: some View {
         ZStack {
             Background.daytime.makeGradient()
                 .ignoresSafeArea()
-            
+
             TabView(selection: $currentPage) {
                 if numberOfPages == 0 {
                     NewGardenView(numberOfPages: $numberOfPages, currentPage: $currentPage)
                 } else {
                     ForEach(0..<numberOfPages, id: \.self) { index in
-                        
+
                         if index == (numberOfPages - 1) {
                             NewGardenView(numberOfPages: $numberOfPages, currentPage: $currentPage)
                         } else {
@@ -43,5 +42,3 @@ struct ContentView_Previews: PreviewProvider {
         ContentView()
     }
 }
-
-

@@ -8,39 +8,37 @@
 import SwiftUI
 
 struct GardenView: View {
-    
+
     let pageNumber: Int
     @ObservedObject var gardenData: GardenData
     @State private var currentBackground = Background.daytime
     @State private var showModal1 = false
     @State private var showModal2 = false
     @State private var showModal3 = false
-    
-    
+
     var body: some View {
         ZStack {
             currentBackground.makeGradient()
                 .ignoresSafeArea()
-            
+
             StoneGrassView()
-            FlowerView().position(CGPoint(x: 100, y: 550.0)) //left
-            FlowerView().position(CGPoint(x: 300, y: 550.0)) //right
-            CandleView().position(CGPoint(x: 200, y: 550.0)) 
-            
-            
+            FlowerView().position(CGPoint(x: 100, y: 550.0)) // left
+            FlowerView().position(CGPoint(x: 300, y: 550.0)) // right
+            CandleView().position(CGPoint(x: 200, y: 550.0))
+
             VStack {
-                
+
                 Spacer()
-                
+
                 Text("Page \(pageNumber + 1) Content")
                     .foregroundColor(.white)
                     .font(.custom("Marker Felt", size: 28))
-                
+
                 Spacer()
-                
+
                 VStack {
                     if gardenData.photoIds.isEmpty {
-                        let _ = print("isempty")
+//                        var _ = print("isempty")
                         EmptySquareView()
                     } else {
                         // TODO: fetch images from cloud and render
@@ -54,7 +52,7 @@ struct GardenView: View {
 //                                print("Showing image at index:", currentIndex, " of indices", gardenData.photoIds.count - 1)
 //                            }
                     }
-                    
+
                             Text("Name: \(gardenData.name)")
                             Text("Birthdate: \(gardenData.bday, formatter: dateFormatter)")
                             Text("Date of Death: \(gardenData.dday, formatter: dateFormatter)")
@@ -62,12 +60,12 @@ struct GardenView: View {
                         .foregroundColor(.white)
                         .font(.custom("Marker Felt", size: 24))
                         .multilineTextAlignment(.center)
-                
+
                 Spacer()
-                
+
                 HStack {
                     Spacer()
-                    
+
                     Button(action: {
                         showModal1 = true
                     }) {
@@ -76,9 +74,9 @@ struct GardenView: View {
                     .sheet(isPresented: $showModal1) {
                         EditorView(gardenData: gardenData, showModal: $showModal1)
                     }
-                    
+
                     Spacer()
-                    
+
                     Button(action: {
                         showModal2 = true
                     }) {
@@ -87,9 +85,9 @@ struct GardenView: View {
                     .sheet(isPresented: $showModal2) {
                         ResourcesView()
                     }
-                    
+
                     Spacer()
-                    
+
                     Button(action: {
                         showModal3 = true
                     }) {
@@ -98,10 +96,10 @@ struct GardenView: View {
                     .sheet(isPresented: $showModal3) {
                         JournalView()
                     }
-                    
+
                     Spacer()
                 }
-                
+
                 Spacer().frame(height: 70) // Adjust spacing as needed
             }
         }.onTapGesture {
@@ -116,7 +114,7 @@ struct GardenView: View {
             }
         }
     }
-    
+
 }
 
 struct EmptySquareView: View {
@@ -130,7 +128,7 @@ struct EmptySquareView: View {
 
 struct CircleButton: View {
     var icon: String
-    
+
     var body: some View {
         Circle()
             .fill(.blue)
@@ -140,7 +138,7 @@ struct CircleButton: View {
                     .foregroundColor(.white)
             )
     }
-    
+
 }
 
 let dateFormatter: DateFormatter = {

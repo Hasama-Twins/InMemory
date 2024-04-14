@@ -12,21 +12,21 @@ import PhotosUI
 struct EditorView: View {
     @ObservedObject var gardenData: GardenData
     @Binding var showModal: Bool
-    
+
     @State private var selectedItems = [PhotosPickerItem]()
     @State private var selectedImages = [UIImage]()
-    
+
     // Properties to hold temporary values for the form
     @State private var newName: String = ""
     @State private var newBirthdate: Date = Date()
     @State private var newDateOfDeath: Date = Date()
-    
+
     var body: some View {
         NavigationView {
             Form {
                 Section(header: Text("Person Details")) {
                     TextField("Name", text: $newName)
-                    DatePicker("Birthdate", selection: $newBirthdate,displayedComponents: .date)
+                    DatePicker("Birthdate", selection: $newBirthdate, displayedComponents: .date)
                     DatePicker("Date of Death", selection: $newDateOfDeath, displayedComponents: .date)
                 }
             Section(header: Text("Photos")) {

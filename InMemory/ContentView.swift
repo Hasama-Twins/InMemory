@@ -26,7 +26,7 @@ struct ContentView: View {
                         if index == (numberOfPages - 1) {
                             NewGardenView(numberOfPages: $numberOfPages, currentPage: $currentPage)
                         } else {
-                            GardenView(pageNumber: index)
+                            GardenView(pageNumber: index, gardenData: GardenData())
                                 .tag(index)
                         }
                     }

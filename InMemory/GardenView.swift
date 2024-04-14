@@ -10,21 +10,35 @@ import SwiftUI
 struct GardenView: View {
     
     let pageNumber: Int
+    @ObservedObject var gardenData: GardenData
     @State private var currentBackground = Background.daytime
     @State private var showModal1 = false
     @State private var showModal2 = false
     @State private var showModal3 = false
+    
     
     var body: some View {
         ZStack {
             currentBackground.makeGradient()
                 .ignoresSafeArea()
             
-            Text("Page \(pageNumber + 1) Content")
-                .foregroundColor(.white)
-                .font(.largeTitle)
-            
             VStack {
+                
+                Text("Page \(pageNumber + 1) Content")
+                    .foregroundColor(.white)
+                    .font(.largeTitle)
+                
+                Spacer()
+                
+                VStack {
+                            Text("Name: \(gardenData.name)")
+                            Text("Birthdate: \(gardenData.bday, formatter: dateFormatter)")
+                            Text("Date of Death: \(gardenData.dday, formatter: dateFormatter)")
+                        }
+                        .foregroundColor(.white)
+                        .font(.title)
+                        .multilineTextAlignment(.center)
+                
                 Spacer()
                 
                 HStack {
@@ -36,7 +50,7 @@ struct GardenView: View {
                         CircleButton(icon: "pencil")
                     }
                     .sheet(isPresented: $showModal1) {
-                        EditorView()
+                        EditorView(gardenData: gardenData, showModal: $showModal1)
                     }
                     
                     Spacer()
@@ -97,8 +111,14 @@ struct CircleButton: View {
     
 }
 
+let dateFormatter: DateFormatter = {
+    let formatter = DateFormatter()
+    formatter.dateStyle = .long
+    return formatter
+}()
+
 struct GardenView_Previews: PreviewProvider {
     static var previews: some View {
-        GardenView(pageNumber: 1)
+        GardenView(pageNumber: 1, gardenData: GardenData())
     }
 }

@@ -19,6 +19,7 @@ struct GardenView: View {
     @State private var showModal3 = false
     @State private var loadedImage: UIImage?
     @State private var isLoaded: Bool = false
+    @State var imageIndex = 0
 
     var body: some View {
         ZStack {
@@ -38,6 +39,10 @@ struct GardenView: View {
                         .frame(width: 200, height: 200)
                         .cornerRadius(10)
                         .position(CGPoint(x: 200.0, y: 260.0))
+                        .onTapGesture {
+                            imageIndex = (imageIndex + 1) % gardenData!.photoIds.count
+                            fetchPhotoData()
+                        }
                 }
             }
 
@@ -88,7 +93,7 @@ struct GardenView: View {
     }
 
     func fetchPhotoData() {
-        ImageFirebaseHelper.getPhotoFromPath(path: gardenData?.photoIds[0] ?? "") { image in
+        ImageFirebaseHelper.getPhotoFromPath(path: gardenData?.photoIds[imageIndex] ?? "") { image in
             if let image = image {
                 self.loadedImage = image
                 self.isLoaded = true

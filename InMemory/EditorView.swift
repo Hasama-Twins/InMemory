@@ -25,15 +25,12 @@ struct EditorView: View {
     var body: some View {
         ZStack {
 
-            // TODO: show gradient
-            // background.makeGradient().edgesIgnoringSafeArea(.all)
-
             NavigationView {
                 Form {
-                    Section(header: Text("Person Details")) {
+                    Section(header: Text("Memorial Details")) {
                         TextField("Name", text: $newName)
                         DatePicker("Birthdate", selection: $newBirthdate, displayedComponents: .date)
-                        DatePicker("Date of Death", selection: $newDateOfDeath, displayedComponents: .date)
+                        DatePicker("Date of Passing", selection: $newDateOfDeath, displayedComponents: .date)
                     }
                     Section(header: Text("Photos")) {
                         // Render photos from gardenData.photoIds
@@ -67,7 +64,9 @@ struct EditorView: View {
                         }
                     }
                 }
-                .navigationTitle("Edit Person")
+                .background(background.makeGradient())
+                .scrollContentBackground(.hidden)
+                .navigationTitle("Edit Memorial")
                 .navigationBarItems(
                     leading: Button("Cancel") {
                         showModal = false

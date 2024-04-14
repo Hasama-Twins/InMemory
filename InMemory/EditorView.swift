@@ -53,7 +53,7 @@ struct EditorView: View {
                                 .foregroundColor(.secondary)
                         }
                         PhotosPicker(selection: $selectedItems, matching: .any(of: [.images, .not(.videos)])) {
-                            Label("Edit Photos", systemImage: "pencil")
+                            Label("Add Photos", systemImage: "pencil")
                         }.onChange(of: selectedItems) {
                             newValues in
                             Task {

@@ -52,6 +52,7 @@ struct JournalView: View {
                             .frame(width: 350)
                             .overlay(
                                 Text("Start journaling here")
+                                    .font(.custom("Gill Sans", size: 18))
                                     .foregroundColor(.gray)
                                     .padding(8) // Adjust padding as needed
                                     .allowsHitTesting(false) // This makes sure the text doesn't capture taps
@@ -64,15 +65,17 @@ struct JournalView: View {
                             VStack {
                                 Text(note.text)
                                 .padding(.vertical, 50)
+                                .font(.custom("Gill Sans", size: 18))
                                 .background(
                                     Rectangle()
                                         .fill(Color.white)
                                         .cornerRadius(10)
                                         .padding()
                                         .frame(width: 350)
+
                                 )
                                 Text(note.date.formatted()) // Display formatted date
-                                    .font(.caption)
+                                    .font(.custom("Gill Sans", size: 14))
                                     .foregroundColor(.gray)
                             }
                         }

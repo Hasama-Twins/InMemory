@@ -22,7 +22,7 @@ struct ResourcesView: View {
                 VStack(alignment: .leading, spacing: 20) {
 
                     Text("Coping With Loss")
-                        .font(.title)
+                        .font(.custom("Gill Sans", size: 30))
                         .foregroundColor(textColor)
 
                     // Display each paragraph with the first sentence bolded
@@ -95,8 +95,10 @@ struct ParagraphView: View {
         VStack(alignment: .leading) {
                     Text(firstSentence)
                         .bold()
+                        .font(.custom("Gill Sans", size: 18))
                         .multilineTextAlignment(.leading)
                     Text(remainingText)
+                        .font(.custom("Gill Sans", size: 18))
                         .multilineTextAlignment(.leading)
         }
     }

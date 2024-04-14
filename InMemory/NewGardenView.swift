@@ -34,6 +34,7 @@ struct NewGardenView: View {
                         .padding()
                         .background(Color.green)
                         .cornerRadius(8)
+                        .font(.custom("Gill Sans", size: 18))
                 }.shadow(color: Color.black.opacity(0.3), radius: 5, x: 0, y: 3)
                 Spacer().frame(height: 50)
                 Button(action: {
@@ -44,12 +45,13 @@ struct NewGardenView: View {
                         .padding()
                         .background(Color.blue)
                         .cornerRadius(8)
+                        .font(.custom("Gill Sans", size: 18))
                 }.shadow(color: Color.black.opacity(0.3), radius: 5, x: 0, y: 3)
                 if isJoiningMemorial {
                     HStack {
                         TextField("Enter PIN", text: $pin)
                             .padding(10) // Add padding to the text field
-                            .font(.system(size: 20)) // Set font size to 20
+                            .font(.custom("Gill Sans", size: 20))
                             .textFieldStyle(RoundedBorderTextFieldStyle())
                             .frame(width: 150) // Set width of the text field
                             .keyboardType(.numberPad)

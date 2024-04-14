@@ -48,14 +48,13 @@ struct GardenView: View {
             }
 
             VStack {
-                Text(gardenData?.name ?? "Unknown Name")
-                Text(GardenData.formattedDate(date: gardenData?.bday ?? Date()))
-                Text(GardenData.formattedDate(date: gardenData?.dday ?? Date()))
+                Text(gardenData?.name ?? "Unknown Name").font(.custom("Gill Sans", size: 22))
+                Text(GardenData.formattedDate(date: gardenData?.bday ?? Date())).font(.custom("Gill Sans", size: 18))
+                Text(GardenData.formattedDate(date: gardenData?.dday ?? Date())).font(.custom("Gill Sans", size: 18))
             }
             .foregroundColor(.white)
-            .font(.custom("Marker Felt", size: 22))
             .multilineTextAlignment(.center)
-            .position(CGPoint(x: 200.0, y: 400.0))
+            .position(CGPoint(x: 200.0, y: 405.0))
 
             HStack {
                Spacer()

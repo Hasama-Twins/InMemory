@@ -39,7 +39,7 @@ struct GardenView: View {
                 VStack {
                     if gardenData.photoIds.isEmpty {
 //                        var _ = print("isempty")
-                        EmptySquareView()
+                        EmptySquareView().position(CGPoint(x: 200.0, y: 220.0))
                     } else {
                         // TODO: fetch images from cloud and render
 //                        Image(uiImage: StorageHelper.getImageFromUserDefaults(key: gardenData.photoIds[currentIndex]))
@@ -53,55 +53,43 @@ struct GardenView: View {
 //                            }
                     }
 
-                            Text("Name: \(gardenData.name)")
-                            Text("Birthdate: \(gardenData.bday, formatter: dateFormatter)")
-                            Text("Date of Death: \(gardenData.dday, formatter: dateFormatter)")
-                        }
-                        .foregroundColor(.white)
-                        .font(.custom("Marker Felt", size: 24))
-                        .multilineTextAlignment(.center)
+                    Text("Name: \(gardenData.name)")
+                    Text("Birthdate: \(gardenData.bday, formatter: dateFormatter)")
+                    Text("Date of Death: \(gardenData.dday, formatter: dateFormatter)")
 
-                Spacer()
-
-                HStack {
-                    Spacer()
-
-                    Button(action: {
-                        showModal1 = true
-                    }) {
-                        CircleButton(icon: "pencil")
-                    }
-                    .sheet(isPresented: $showModal1) {
-                        EditorView(gardenData: gardenData, showModal: $showModal1)
-                    }
-
-                    Spacer()
-
-                    Button(action: {
-                        showModal2 = true
-                    }) {
-                        CircleButton(icon: "lightbulb")
-                    }
-                    .sheet(isPresented: $showModal2) {
-                        ResourcesView()
-                    }
-
-                    Spacer()
-
-                    Button(action: {
-                        showModal3 = true
-                    }) {
-                        CircleButton(icon: "note.text")
-                    }
-                    .sheet(isPresented: $showModal3) {
-                        JournalView()
-                    }
-
-                    Spacer()
                 }
+                .foregroundColor(.white)
+                .font(.custom("Marker Felt", size: 24))
+                .multilineTextAlignment(.center)
 
                 Spacer().frame(height: 70) // Adjust spacing as needed
             }
+
+            HStack {
+               Spacer()
+               ActionButton(icon: "pencil") {
+                   showModal1 = true
+               }
+               .sheet(isPresented: $showModal1) {
+                   EditorView(gardenData: gardenData, showModal: $showModal1)
+               }
+               Spacer()
+               ActionButton(icon: "lightbulb") {
+                   showModal2 = true
+               }
+               .sheet(isPresented: $showModal2) {
+                   ResourcesView()
+               }
+               Spacer()
+               ActionButton(icon: "note.text") {
+                   showModal3 = true
+               }
+               .sheet(isPresented: $showModal3) {
+                   JournalView()
+               }
+               Spacer()
+           }.position(CGPoint(x: 200, y: 740.0))
+
         }.onTapGesture {
             // Change the background option when tapped
             switch currentBackground {
@@ -124,21 +112,6 @@ struct EmptySquareView: View {
             .frame(width: 200, height: 200)
             .cornerRadius(10)
     }
-}
-
-struct CircleButton: View {
-    var icon: String
-
-    var body: some View {
-        Circle()
-            .fill(.blue)
-            .frame(width: 60, height: 60)
-            .overlay(
-                Image(systemName: icon)
-                    .foregroundColor(.white)
-            )
-    }
-
 }
 
 let dateFormatter: DateFormatter = {

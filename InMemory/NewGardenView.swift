@@ -20,7 +20,7 @@ struct NewGardenView: View {
                 FirebaseHelper.newGardenPin { newPin in
                     if let pin = newPin {
                         print("New pin generated:", pin)
-                        createPageWithPin()
+                        createPageWithPin(pin: pin)
                     } else {
                         print("Failed to generate pin.")
                     }
@@ -55,7 +55,7 @@ struct NewGardenView: View {
                         FirebaseHelper.verifyMemorial(pin: pin) { success in
                             if success {
                                 print("Memorial verified.")
-                                createPageWithPin()
+                                createPageWithPin(pin: pin)
                             } else {
                                 print("Memorial not found.")
                             }
@@ -71,7 +71,7 @@ struct NewGardenView: View {
         }
     }
 
-    func createPageWithPin() {
+    func createPageWithPin(pin: String) {
         numberOfPages += 1
         currentPage = numberOfPages - 2
         pins.append(pin)

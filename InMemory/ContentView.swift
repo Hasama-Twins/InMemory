@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var numberOfPages = 0
+    @State private var numberOfPages = 1
     @State private var currentPage = 0
     @State private var pins: [String] = []
 
@@ -18,7 +18,7 @@ struct ContentView: View {
                 .ignoresSafeArea()
 
             TabView(selection: $currentPage) {
-                if numberOfPages == 0 {
+                if numberOfPages == 1 {
                     NewGardenView(numberOfPages: $numberOfPages, currentPage: $currentPage, pins: $pins)
                 } else {
                     ForEach(0..<numberOfPages, id: \.self) { index in

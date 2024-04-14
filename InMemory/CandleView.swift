@@ -8,7 +8,14 @@
 import SwiftUI
 
 struct CandleView: View {
-    @State private var candleOn = true
+    @Binding private var candleOn: Bool
+    var documentId: String
+
+    // Explicit initializer to initialize the @Binding property
+    init(candleOn: Binding<Bool>, documentId: String) {
+        self._candleOn = candleOn
+        self.documentId = documentId
+    }
 
     var body: some View {
         ZStack {
@@ -33,12 +40,21 @@ struct CandleView: View {
         .onTapGesture {
             // Toggle the candleOn state when the image is tapped
             candleOn.toggle()
+            FirebaseHelper.updateCandle(documentId: documentId, candleOn: candleOn) { error in
+                if error != nil {
+                    candleOn.toggle()
+                }
+            }
         }
     }
 }
 
 struct CandleView_Previews: PreviewProvider {
     static var previews: some View {
-        CandleView()
+        let isCandleOn = Binding<Bool>(
+            get: { true }, // Sample value
+            set: { _ in }
+        )
+        return CandleView(candleOn: isCandleOn, documentId: "")
     }
 }

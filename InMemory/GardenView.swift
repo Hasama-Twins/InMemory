@@ -20,6 +20,7 @@ struct GardenView: View {
     @State private var loadedImage: UIImage?
     @State private var isLoaded: Bool = false
     @State var imageIndex = 0
+    @State var candleOn = false
 
     var body: some View {
         ZStack {
@@ -27,7 +28,7 @@ struct GardenView: View {
             StoneGrassView()
             FlowerView().position(CGPoint(x: 100, y: 550.0)) // left
             FlowerView().position(CGPoint(x: 300, y: 550.0)) // right
-            CandleView().position(CGPoint(x: 200, y: 550.0))
+            CandleView(candleOn: $candleOn, documentId: gardenData?.documentId ?? "").position(CGPoint(x: 200, y: 550.0))
 
             if (!isLoaded) && ((gardenData == nil) || gardenData!.photoIds.isEmpty) {
                 EmptySquareView().position(CGPoint(x: 200.0, y: 260.0))
@@ -112,6 +113,7 @@ struct GardenView: View {
                 print("retreived data")
                 if gardenData != nil && !gardenData!.photoIds.isEmpty {
                     fetchPhotoData()
+                    candleOn = gardenData!.candle
                 }
             } else {
                 // Handle error or no data

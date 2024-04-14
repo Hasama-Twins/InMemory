@@ -70,7 +70,8 @@ struct FirebaseHelper {
                 "photoIds": gardenData.photoIds,
                 "bday": gardenData.bday,
                 "dday": gardenData.dday,
-                "pin": gardenData.pin
+                "pin": gardenData.pin,
+                "candle": gardenData.candle
             ]
             // Add a new document with a generated ID
             db.collection("memorial").addDocument(data: gardenDataDict) { err in
@@ -104,14 +105,16 @@ struct FirebaseHelper {
               let pin = data["pin"] as? String,
               let photoIds = data["photoIds"] as? [String],
               let bday = (data["bday"] as? Timestamp)?.dateValue(),
-              let dday = (data["dday"] as? Timestamp)?.dateValue()  else {
+              let dday = (data["dday"] as? Timestamp)?.dateValue(),
+              let candle = data["candle"] as? Bool
+        else {
             print("returning during extract")
             // Required data is missing or has incorrect format
             return nil
         }
 
         // Create and return GardenData object
-        return GardenData(pin: pin, name: name, photoIds: photoIds, bday: bday, dday: dday, documentId: document.documentID)
+        return GardenData(pin: pin, name: name, photoIds: photoIds, bday: bday, dday: dday, documentId: document.documentID, candle: candle)
     }
 
     static func getGardenData(pin: String, completion: @escaping (GardenData?) -> Void) {
@@ -150,6 +153,27 @@ struct FirebaseHelper {
                 completion(error)
             } else {
                 print("Memorial updated successfully with id \(documentId) and data \(gardenDataDict)")
+                completion(nil)
+            }
+        }
+
+    }
+
+    // Update an existing memorial with the provided documentId
+    static func updateCandle(documentId: String, candleOn: Bool, completion: @escaping (Error?) -> Void) {
+
+        // Convert GardenData to a dictionary
+        let gardenDataDict: [String: Any] = [
+            "candle": candleOn
+        ]
+
+        // Update the memorial document with the provided data
+        db.collection("memorial").document(documentId).setData(gardenDataDict, merge: true) { error in
+            if let error = error {
+                print("Error updating memorial: \(error.localizedDescription)")
+                completion(error)
+            } else {
+                print("Candle updated successfully with id \(documentId) and candle \(gardenDataDict)")
                 completion(nil)
             }
         }

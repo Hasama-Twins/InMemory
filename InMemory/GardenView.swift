@@ -13,11 +13,12 @@ struct GardenView: View {
     let pageNumber: Int
     var memorialPin: String
     let currentBackground: Background
-    @ObservedObject var gardenDataFetcher = GardenDataFetcher()
+    @State var gardenData: GardenData?
     @State private var showModal1 = false
     @State private var showModal2 = false
     @State private var showModal3 = false
     @State private var loadedImage: UIImage?
+    @State private var isLoaded: Bool = false
 
     var body: some View {
         ZStack {
@@ -27,32 +28,23 @@ struct GardenView: View {
             FlowerView().position(CGPoint(x: 300, y: 550.0)) // right
             CandleView().position(CGPoint(x: 200, y: 550.0))
 
-            if (gardenDataFetcher.gardenData == nil) || gardenDataFetcher.gardenData!.photoIds.isEmpty {
+            if (!isLoaded) && ((gardenData == nil) || gardenData!.photoIds.isEmpty) {
                 EmptySquareView().position(CGPoint(x: 200.0, y: 260.0))
             } else {
-                    if let image = loadedImage {
-                        Image(uiImage: image)
-                            .resizable()
-                            .scaledToFill()
-                            .frame(width: 200, height: 200)
-                            .cornerRadius(10)
-                    } else {
-                        ProgressView() // Placeholder while loading
-                            .frame(width: 200, height: 200)
-                            .onAppear {
-                                ImageFirebaseHelper.getPhotoFromPath(path: gardenDataFetcher.gardenData?.photoIds[0] ?? "") { image in
-                                    if let image = image {
-                                        self.loadedImage = image
-                                    }
-                                }
-                            }
-                    }
+                if let image = self.loadedImage {
+                    Image(uiImage: image)
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: 200, height: 200)
+                        .cornerRadius(10)
+                        .position(CGPoint(x: 200.0, y: 260.0))
+                }
             }
 
             VStack {
-                Text(gardenDataFetcher.gardenData?.name ?? "Unknown Name")
-                Text(GardenData.formattedDate(date: gardenDataFetcher.gardenData?.bday ?? Date()))
-                Text(GardenData.formattedDate(date: gardenDataFetcher.gardenData?.dday ?? Date()))
+                Text(gardenData?.name ?? "Unknown Name")
+                Text(GardenData.formattedDate(date: gardenData?.bday ?? Date()))
+                Text(GardenData.formattedDate(date: gardenData?.dday ?? Date()))
             }
             .foregroundColor(.white)
             .font(.custom("Marker Felt", size: 22))
@@ -65,7 +57,7 @@ struct GardenView: View {
                    showModal1 = true
                }
                .sheet(isPresented: $showModal1) {
-                   EditorView(gardenData: gardenDataFetcher.gardenData ?? GardenData(), showModal: $showModal1, pin: gardenDataFetcher.gardenData?.pin ?? "0000", background: currentBackground)
+                   EditorView(gardenData: gardenData ?? GardenData(), showModal: $showModal1, pin: gardenData?.pin ?? "0000", background: currentBackground)
                }
                Spacer()
                ActionButton(icon: "lightbulb") {
@@ -94,13 +86,28 @@ struct GardenView: View {
             }
         }
     }
+
+    func fetchPhotoData() {
+        ImageFirebaseHelper.getPhotoFromPath(path: gardenData?.photoIds[0] ?? "") { image in
+            if let image = image {
+                self.loadedImage = image
+                self.isLoaded = true
+                print("image loaded")
+            }
+        }
+    }
+
     func fetchGardenData() {
         // Call the async function to fetch garden data
-        FirebaseHelper.getGardenData(pin: memorialPin) { gardenData in
+        FirebaseHelper.getGardenData(pin: memorialPin) {retrievedData in
             // Handle the retrieved garden data
-            if let gardenData = gardenData {
+            if let retrievedData = retrievedData {
                 // Update the observed object with the retrieved data
-                self.gardenDataFetcher.gardenData = gardenData
+                gardenData = retrievedData
+                print("retreived data")
+                if gardenData != nil && !gardenData!.photoIds.isEmpty {
+                    fetchPhotoData()
+                }
             } else {
                 // Handle error or no data
                 print("Failed to fetch garden data")

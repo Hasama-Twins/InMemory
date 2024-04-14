@@ -111,7 +111,7 @@ struct FirebaseHelper {
         }
 
         // Create and return GardenData object
-        return GardenData(pin: pin, name: name, photoIds: [], bday: bday, dday: dday, documentId: document.documentID)
+        return GardenData(pin: pin, name: name, photoIds: photoIds, bday: bday, dday: dday, documentId: document.documentID)
     }
 
     static func getGardenData(pin: String, completion: @escaping (GardenData?) -> Void) {

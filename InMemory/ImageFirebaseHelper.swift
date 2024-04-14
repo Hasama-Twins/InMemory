@@ -11,9 +11,10 @@ import UIKit
 
 struct ImageFirebaseHelper {
 
+    static let storageRef = Storage.storage().reference()
+
     static func getPhotoFromPath(path: String, completion: @escaping (UIImage?) -> Void) {
         print("path \(path)")
-        let storageRef = Storage.storage().reference()
         let childRef = storageRef.child(path)
 
         // Download the image data from Firebase Storage
@@ -33,8 +34,7 @@ struct ImageFirebaseHelper {
     }
 
     static func uploadPhoto(image: UIImage, gardenData: GardenData) {
-        let storageRef = Storage.storage().reference()
-        guard let imageData = image.jpegData(compressionQuality: 0.7) else {
+        guard let imageData = image.jpegData(compressionQuality: 0.25) else {
             print("Failed to convert image to JPEG data")
             return
         }

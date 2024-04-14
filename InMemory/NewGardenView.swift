@@ -16,7 +16,6 @@ struct NewGardenView: View {
 
     var body: some View {
         ZStack {
-            CloudView()
             GrassView()
 
             VStack {

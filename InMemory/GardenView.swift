@@ -12,8 +12,8 @@ struct GardenView: View {
 
     let pageNumber: Int
     var memorialPin: String
+    let currentBackground: Background
     @ObservedObject var gardenDataFetcher = GardenDataFetcher()
-    @State private var currentBackground = Background.daytime
     @State private var showModal1 = false
     @State private var showModal2 = false
     @State private var showModal3 = false
@@ -21,10 +21,7 @@ struct GardenView: View {
 
     var body: some View {
         ZStack {
-            currentBackground.makeGradient()
-                .ignoresSafeArea()
 
-            CloudView()
             StoneGrassView()
             FlowerView().position(CGPoint(x: 100, y: 550.0)) // left
             FlowerView().position(CGPoint(x: 300, y: 550.0)) // right
@@ -87,29 +84,26 @@ struct GardenView: View {
                Spacer()
            }.position(CGPoint(x: 200, y: 700.0))
 
-        }.onTapGesture {
-            // Change the background option when tapped
-            switch currentBackground {
-            case .daytime:
-                currentBackground = .nighttime
-            case .nighttime:
-                currentBackground = .sunset
-            case .sunset:
-                currentBackground = .daytime
-            }
         }
         // Call getGardenData when the view appears
         .onAppear {
-            // Call the async function to fetch garden data
-            FirebaseHelper.getGardenData(pin: memorialPin) { gardenData in
-                // Handle the retrieved garden data
-                if let gardenData = gardenData {
-                    // Update the observed object with the retrieved data
-                    self.gardenDataFetcher.gardenData = gardenData
-                } else {
-                    // Handle error or no data
-                    print("Failed to fetch garden data")
-                }
+            fetchGardenData()
+        }.onChange(of: showModal1) { newValue in
+            if !newValue {
+                fetchGardenData()
+            }
+        }
+    }
+    func fetchGardenData() {
+        // Call the async function to fetch garden data
+        FirebaseHelper.getGardenData(pin: memorialPin) { gardenData in
+            // Handle the retrieved garden data
+            if let gardenData = gardenData {
+                // Update the observed object with the retrieved data
+                self.gardenDataFetcher.gardenData = gardenData
+            } else {
+                // Handle error or no data
+                print("Failed to fetch garden data")
             }
         }
     }
@@ -127,6 +121,6 @@ struct EmptySquareView: View {
 
 struct GardenView_Previews: PreviewProvider {
     static var previews: some View {
-        GardenView(pageNumber: 1, memorialPin: "2000")
+        GardenView(pageNumber: 1, memorialPin: "2000", currentBackground: Background.daytime)
     }
 }

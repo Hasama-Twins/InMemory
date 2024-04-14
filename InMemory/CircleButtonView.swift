@@ -13,7 +13,7 @@ struct ActionButton: View {
 
     var body: some View {
         Button(action: action) {
-            CircleButton(icon: icon)
+            CircleButton(icon: icon).shadow(color: Color.black.opacity(0.3), radius: 5, x: 0, y: 3)
         }
     }
 }

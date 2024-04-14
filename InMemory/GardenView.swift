@@ -29,22 +29,20 @@ struct GardenView: View {
                 .frame(width: 600, height: 400)
                 .offset(x: 0, y: -300)
             
-            Text("Page \(pageNumber + 1) Content")
-                .foregroundColor(.white)
-                .font(.largeTitle)
             
             VStack {
+                
+                Spacer()
                 
                 Text("Page \(pageNumber + 1) Content")
                     .foregroundColor(.white)
                     .font(.largeTitle)
                 
-                Spacer()
                 
                 VStack {
-                            Text("Name: \(gardenData.name)")
-                            Text("Birthdate: \(gardenData.bday, formatter: dateFormatter)")
-                            Text("Date of Death: \(gardenData.dday, formatter: dateFormatter)")
+                    Text("Name: \(gardenData.name)")
+                    Text("Birthdate: \(gardenData.bday, formatter: dateFormatter)")
+                    Text("Date of Death: \(gardenData.dday, formatter: dateFormatter)")
                         }
                         .foregroundColor(.white)
                         .font(.title)

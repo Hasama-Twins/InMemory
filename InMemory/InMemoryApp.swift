@@ -21,10 +21,11 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 struct InMemoryApp: App {
     // register app delegate for Firebase setup
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
+    let userSettings = UserSettings()
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentView().environmentObject(userSettings)
         }
     }
 }

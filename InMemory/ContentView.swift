@@ -44,7 +44,7 @@ struct ContentView: View {
             .fill(Color.white)
             .opacity(0.0001)
             .frame(height: UIScreen.main.bounds.height / 2 + 10)
-            .position(CGPoint(x: 195.0, y: 70.0))
+            .position(CGPoint(x: 195.0, y: 40.0))
             .onTapGesture {
                 // Change the background option when tapped
                 switch currentBackground {
@@ -63,6 +63,11 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        // Create a UserSettings object
+        let userSettings = UserSettings()
+        userSettings.username = "" // Set the desired username
+
+        // Provide the UserSettings object to the preview
+        return ContentView().environmentObject(userSettings)
     }
 }

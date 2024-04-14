@@ -9,16 +9,43 @@ import Firebase
 
 struct NewGardenView: View {
     @Binding var numberOfPages: Int
-    @Binding var currentPage: Int
-    @Binding var pins: [String]
+   @Binding var currentPage: Int
+   @Binding var pins: [String]
+   @EnvironmentObject var userSettings: UserSettings
+   @State private var pin: String = ""
+   @State private var isEditing: Bool = false
     @State private var isJoiningMemorial = false
-    @State private var pin: String = ""
 
     var body: some View {
         ZStack {
             GrassView()
 
             VStack {
+                if isEditing {
+                    HStack {
+                        TextField("Enter Username", text: $userSettings.username)
+                            .padding(10)
+                            .font(.system(size: 20))
+                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                            .frame(width: 190)
+                            .keyboardType(.numberPad)
+                        Button(action: {
+                            self.isEditing = false
+                        }) {
+                            Image(systemName: "arrow.right.circle.fill")
+                                .font(.title)
+                                .foregroundColor(.blue)
+                                .padding()
+                        }.shadow(color: Color.black.opacity(0.3), radius: 5, x: 0, y: 3)
+                    }
+                } else {
+                    Text("Hi, \(userSettings.username)")
+                        .font(.title)
+                        .foregroundColor(.white)
+                }
+
+                Spacer().frame(height: 50)
+
                 Button(action: {
                     FirebaseHelper.newGardenPin { newPin in
                         if let pin = newPin {
@@ -73,6 +100,8 @@ struct NewGardenView: View {
                         }.shadow(color: Color.black.opacity(0.3), radius: 5, x: 0, y: 3)
                     }
                 }
+            }.onAppear {
+                self.isEditing = userSettings.username == ""
             }
         }
     }
@@ -86,6 +115,16 @@ struct NewGardenView: View {
 
 struct NewGardenView_Previews: PreviewProvider {
     static var previews: some View {
-        NewGardenView(numberOfPages: .constant(3), currentPage: .constant(2), pins: .constant([]))
-    }
+            // Create a mock UserSettings object
+            let userSettings = UserSettings()
+            userSettings.username = "" // Set some initial value for testing
+
+            // Provide the mock UserSettings object to the preview
+            return NewGardenView(
+                numberOfPages: .constant(3),
+                currentPage: .constant(2),
+                pins: .constant([])
+            )
+            .environmentObject(userSettings) // Inject the mock UserSettings object
+        }
 }

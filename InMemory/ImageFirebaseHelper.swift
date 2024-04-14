@@ -12,8 +12,9 @@ import UIKit
 struct ImageFirebaseHelper {
 
     static func getPhotoFromPath(path: String, completion: @escaping (UIImage?) -> Void) {
-        let storage = Storage.storage()
-        let storageRef = storage.reference(withPath: path)
+        print("path \(path)")
+        let storageRef = Storage.storage().reference()
+        let childRef = storageRef.child(path)
 
         // Download the image data from Firebase Storage
         storageRef.getData(maxSize: 1 * 1024 * 1024) { data, error in

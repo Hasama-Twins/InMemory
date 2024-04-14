@@ -30,7 +30,7 @@ struct GardenView: View {
             FlowerView().position(CGPoint(x: 300, y: 550.0)) // right
             CandleView().position(CGPoint(x: 200, y: 550.0))
 
-            if (gardenDataFetcher.gardenData?.photoIds.isEmpty) != nil {
+            if gardenDataFetcher.gardenData != nil && gardenDataFetcher.gardenData!.photoIds.isEmpty {
                 EmptySquareView().position(CGPoint(x: 200.0, y: 260.0))
             } else {
                     if let image = loadedImage {

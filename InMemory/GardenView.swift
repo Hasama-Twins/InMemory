@@ -17,6 +17,7 @@ struct GardenView: View {
     @State private var showModal1 = false
     @State private var showModal2 = false
     @State private var showModal3 = false
+    @State private var loadedImage: UIImage?
 
     var body: some View {
         ZStack {
@@ -31,7 +32,23 @@ struct GardenView: View {
             if (gardenDataFetcher.gardenData?.photoIds.isEmpty) != nil {
                 EmptySquareView().position(CGPoint(x: 200.0, y: 260.0))
             } else {
-                // Render images from cloud, look page bottom
+                    if let image = loadedImage {
+                        Image(uiImage: image)
+                            .resizable()
+                            .scaledToFill()
+                            .frame(width: 200, height: 200)
+                            .cornerRadius(10)
+                    } else {
+                        ProgressView() // Placeholder while loading
+                            .frame(width: 200, height: 200)
+                            .onAppear {
+                                ImageFirebaseHelper.getPhotoFromPath(path: gardenDataFetcher.gardenData?.photoIds[0] ?? "") { image in
+                                    if let image = image {
+                                        self.loadedImage = image
+                                    }
+                                }
+                            }
+                    }
             }
 
             VStack {
@@ -112,14 +129,3 @@ struct GardenView_Previews: PreviewProvider {
         GardenView(pageNumber: 1, memorialPin: "2000")
     }
 }
-
-// TODO: fetch images from cloud and render
-//                        Image(uiImage: StorageHelper.getImageFromUserDefaults(key: gardenData.photoIds[currentIndex]))
-//                            .resizable()
-//                            .scaledToFill()
-//                            .frame(width: 200, height: 200)
-//                            .cornerRadius(10)
-//                            .onTapGesture {
-//                                currentIndex = (currentIndex + 1) % gardenData.photoIds.count
-//                                print("Showing image at index:", currentIndex, " of indices", gardenData.photoIds.count - 1)
-//                            }

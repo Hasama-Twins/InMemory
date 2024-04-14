@@ -102,7 +102,7 @@ struct FirebaseHelper {
         // Extract data from Firestore document
         guard let name = data["name"] as? String,
               let pin = data["pin"] as? String,
-//              let photoIds = data["photoIds"] as? [String],
+              let photoIds = data["photoIds"] as? [String],
               let bday = (data["bday"] as? Timestamp)?.dateValue(),
               let dday = (data["dday"] as? Timestamp)?.dateValue()  else {
             print("returning during extract")
@@ -149,7 +149,7 @@ struct FirebaseHelper {
                 print("Error updating memorial: \(error.localizedDescription)")
                 completion(error)
             } else {
-                print("Memorial updated successfully with id \(documentId)")
+                print("Memorial updated successfully with id \(documentId) and data \(gardenDataDict)")
                 completion(nil)
             }
         }

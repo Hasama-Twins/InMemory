@@ -62,6 +62,7 @@ struct EditorView: View {
                                 for value in newValues {
                                     if let imageData = try? await value.loadTransferable(type: Data.self), let image = UIImage(data: imageData) {
                                         selectedImages.append(image)
+                                        addAndSaveImages(image: image)
                                     }
                                 }
                             }
@@ -94,13 +95,45 @@ struct EditorView: View {
                     newName = gardenData.name
                     newBirthdate = gardenData.bday
                     newDateOfDeath = gardenData.dday
-                    selectedImages = [] // TODO: fetch from cloud?
+                    // Create a dispatch group to wait for all images to be downloaded
+                    let group = DispatchGroup()
+
+                    for path in gardenData.photoIds {
+                        // Enter the group for each iteration
+                        group.enter()
+
+                        // Fetch the image for the current path
+                        ImageFirebaseHelper.getPhotoFromPath(path: path) { image in
+                            if let image = image {
+                                // Append the downloaded image to selectedImages
+                                selectedImages.append(image)
+                                print("Image added")
+                            }
+
+                            // Leave the group after the image is downloaded or if there's an error
+                            group.leave()
+                        }
+                    }
+
+                    // Notify when all images are downloaded
+                    group.notify(queue: .main) {
+                        print("All images downloaded")
+                    }
                 }
             }
         }
+    }
+
+    func addAndSaveImages(image: UIImage) {
+        ImageFirebaseHelper.uploadPhoto(image: image, gardenData: gardenData)
+        selectedImages.append(image)
     }
 }
 
 #Preview {
     EditorView(gardenData: GardenData(), showModal: .constant(true), pin: "2000", background: .daytime)
+}
+
+class ImageViewModel: ObservableObject {
+    @Published var selectedImages: [UIImage] = []
 }

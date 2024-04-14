@@ -29,6 +29,7 @@
 		4B66E93A2BCB89BF00570E87 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 4B66E9392BCB89BF00570E87 /* FirebaseStorage */; };
 		4B66E9402BCBA88E00570E87 /* FirebaseHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B66E93F2BCBA88E00570E87 /* FirebaseHelper.swift */; };
 		4B66E9422BCBB0E800570E87 /* GardenDataFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B66E9412BCBB0E800570E87 /* GardenDataFetcher.swift */; };
+		4BDA4E862BCBCF2C00028CB6 /* ImageFirebaseHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BDA4E852BCBCF2C00028CB6 /* ImageFirebaseHelper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,6 +53,7 @@
 		4B66E9322BCB87A600570E87 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		4B66E93F2BCBA88E00570E87 /* FirebaseHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseHelper.swift; sourceTree = "<group>"; };
 		4B66E9412BCBB0E800570E87 /* GardenDataFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GardenDataFetcher.swift; sourceTree = "<group>"; };
+		4BDA4E852BCBCF2C00028CB6 /* ImageFirebaseHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFirebaseHelper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +108,7 @@
 				4B66E93F2BCBA88E00570E87 /* FirebaseHelper.swift */,
 				2712811B2BCBC2E4000F13E5 /* JournalFirebaseHelper.swift */,
 				4B66E9412BCBB0E800570E87 /* GardenDataFetcher.swift */,
+				4BDA4E852BCBCF2C00028CB6 /* ImageFirebaseHelper.swift */,
 			);
 			path = InMemory;
 			sourceTree = "<group>";
@@ -221,6 +224,7 @@
 			files = (
 				4B66E9402BCBA88E00570E87 /* FirebaseHelper.swift in Sources */,
 				27419E8B2BCB578E0041C1DD /* ResourcesView.swift in Sources */,
+				4BDA4E862BCBCF2C00028CB6 /* ImageFirebaseHelper.swift in Sources */,
 				2712811C2BCBC2E4000F13E5 /* JournalFirebaseHelper.swift in Sources */,
 				27419E952BCB8AF20041C1DD /* CandleView.swift in Sources */,
 				27419E892BCB478B0041C1DD /* Backgrounds.swift in Sources */,

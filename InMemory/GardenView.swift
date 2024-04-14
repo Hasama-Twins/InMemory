@@ -22,7 +22,10 @@ struct GardenView: View {
             currentBackground.makeGradient()
                 .ignoresSafeArea()
             
-            FrameView()
+            StoneGrassView()
+            FlowerView().position(CGPoint(x: 100, y: 550.0)) //left
+            FlowerView().position(CGPoint(x: 300, y: 550.0)) //right
+            CandleView().position(CGPoint(x: 200, y: 550.0)) 
             
             
             VStack {

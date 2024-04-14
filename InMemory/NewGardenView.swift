@@ -43,7 +43,7 @@ struct NewGardenView: View {
                         .foregroundColor(.white)
                 }
 
-                Spacer().frame(height: 50)
+                Spacer().frame(height: 30)
 
                 Button(action: {
                     FirebaseHelper.newGardenPin { newPin in
@@ -55,14 +55,14 @@ struct NewGardenView: View {
                         }
                     }
                 }) {
-                    Text("Add Page")
+                    Text("Create Memorial")
                         .foregroundColor(.white)
                         .padding()
                         .background(Color.green)
                         .cornerRadius(8)
                         .font(.custom("Gill Sans", size: 18))
                 }.shadow(color: Color.black.opacity(0.3), radius: 5, x: 0, y: 3)
-                Spacer().frame(height: 50)
+                Spacer().frame(height: 30)
                 Button(action: {
                     isJoiningMemorial.toggle()
                 }) {
@@ -74,6 +74,7 @@ struct NewGardenView: View {
                         .font(.custom("Gill Sans", size: 18))
                 }.shadow(color: Color.black.opacity(0.3), radius: 5, x: 0, y: 3)
                 if isJoiningMemorial {
+                    Spacer().frame(height: 30)
                     HStack {
                         TextField("Enter PIN", text: $pin)
                             .padding(10) // Add padding to the text field

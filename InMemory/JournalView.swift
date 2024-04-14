@@ -66,8 +66,11 @@ struct JournalView: View {
                         ForEach(notes) { note in
                             VStack {
                                 Text(note.text)
-                                    .padding(.vertical, 50)
                                     .font(.custom("Gill Sans", size: 18))
+                                    .padding(.horizontal, 40)
+                                    .fixedSize(horizontal: false, vertical: true)
+                                    .truncationMode(.tail)
+                                    .padding(.vertical, 30)
                                     .background(
                                         Rectangle()
                                             .fill(Color.white)

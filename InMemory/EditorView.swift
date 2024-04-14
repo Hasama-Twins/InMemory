@@ -22,6 +22,7 @@ struct EditorView: View {
     @State private var newName: String = ""
     @State private var newBirthdate: Date = Date()
     @State private var newDateOfDeath: Date = Date()
+    @State private var newInscription: String = "..."
 
     var body: some View {
         ZStack {
@@ -29,9 +30,18 @@ struct EditorView: View {
             NavigationView {
                 Form {
                     Section(header: Text("Memorial Details")) {
-                        TextField("Name", text: $newName)
+                        LabeledContent {
+                          TextField("Name", text: $newName)
+                        } label: {
+                            Text("Name:")
+                        }
                         DatePicker("Birthday", selection: $newBirthdate, displayedComponents: .date)
                         DatePicker("Date of Passing", selection: $newDateOfDeath, displayedComponents: .date)
+                        LabeledContent {
+                          TextField("Inscription", text: $newInscription)
+                        } label: {
+                            Text("Inscription:")
+                        }
                     }
                     Section(header: Text("Share with Others")) {
                         Text("PIN: \(pin)")
@@ -79,6 +89,7 @@ struct EditorView: View {
                         gardenData.name = newName
                         gardenData.bday = newBirthdate
                         gardenData.dday = newDateOfDeath
+                        gardenData.inscription = newInscription
                         FirebaseHelper.updateMemorial(documentId: gardenData.documentId ?? "", updatedData: gardenData) { error in
                             if let error = error {
                                 print("Error updating memorial: \(error.localizedDescription)")
@@ -93,6 +104,7 @@ struct EditorView: View {
                     newName = gardenData.name
                     newBirthdate = gardenData.bday
                     newDateOfDeath = gardenData.dday
+                    newInscription = gardenData.inscription
                     // Create a dispatch group to wait for all images to be downloaded
                     let group = DispatchGroup()
 

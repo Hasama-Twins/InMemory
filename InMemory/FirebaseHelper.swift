@@ -71,7 +71,8 @@ struct FirebaseHelper {
                 "bday": gardenData.bday,
                 "dday": gardenData.dday,
                 "pin": gardenData.pin,
-                "candle": gardenData.candle
+                "candle": gardenData.candle,
+                "inscription": gardenData.inscription
             ]
             // Add a new document with a generated ID
             db.collection("memorial").addDocument(data: gardenDataDict) { err in
@@ -106,7 +107,8 @@ struct FirebaseHelper {
               let photoIds = data["photoIds"] as? [String],
               let bday = (data["bday"] as? Timestamp)?.dateValue(),
               let dday = (data["dday"] as? Timestamp)?.dateValue(),
-              let candle = data["candle"] as? Bool
+              let candle = data["candle"] as? Bool,
+              let inscription = data["inscription"] as? String
         else {
             print("returning during extract")
             // Required data is missing or has incorrect format
@@ -114,7 +116,7 @@ struct FirebaseHelper {
         }
 
         // Create and return GardenData object
-        return GardenData(pin: pin, name: name, photoIds: photoIds, bday: bday, dday: dday, documentId: document.documentID, candle: candle)
+        return GardenData(pin: pin, name: name, photoIds: photoIds, bday: bday, dday: dday, documentId: document.documentID, candle: candle, inscription: inscription)
     }
 
     static func getGardenData(pin: String, completion: @escaping (GardenData?) -> Void) {
@@ -142,7 +144,8 @@ struct FirebaseHelper {
             "name": updatedData.name,
             "photoIds": updatedData.photoIds,
             "bday": updatedData.bday,
-            "dday": updatedData.dday
+            "dday": updatedData.dday,
+            "inscription": updatedData.inscription
             // Add any other fields you want to update
         ]
 

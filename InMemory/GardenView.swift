@@ -48,9 +48,10 @@ struct GardenView: View {
             }
 
             VStack {
-                Text(gardenData?.name ?? "Unknown Name").font(.custom("Gill Sans", size: 22))
-                Text(GardenData.formattedDate(date: gardenData?.bday ?? Date())).font(.custom("Gill Sans", size: 18))
-                Text(GardenData.formattedDate(date: gardenData?.dday ?? Date())).font(.custom("Gill Sans", size: 18))
+                Text(gardenData?.name ?? "Unknown Name").font(.custom("Gill Sans", size: 20))
+                Text(GardenData.formattedDate(date: gardenData?.bday ?? Date())).font(.custom("Gill Sans", size: 16))
+                Text(GardenData.formattedDate(date: gardenData?.dday ?? Date())).font(.custom("Gill Sans", size: 16))
+                Text(gardenData?.inscription ?? "...").font(.custom("Gill Sans", size: 16))
             }
             .foregroundColor(.white)
             .multilineTextAlignment(.center)

@@ -16,6 +16,7 @@ class GardenData: ObservableObject {
     var dday: Date
     var documentId: String?
     var candle: Bool
+    var inscription: String
 
     init() {
         // Generate a random 4-digit PIN
@@ -27,9 +28,10 @@ class GardenData: ObservableObject {
         self.bday = calendar.date(from: DateComponents(year: 2000, month: 1, day: 1))!
         self.dday = calendar.date(from: DateComponents(year: currentYear, month: 1, day: 1))!
         self.candle = false
+        self.inscription = "..."
     }
 
-    init(pin: String, name: String, photoIds: [String], bday: Date, dday: Date, documentId: String, candle: Bool) {
+    init(pin: String, name: String, photoIds: [String], bday: Date, dday: Date, documentId: String, candle: Bool, inscription: String) {
         self.pin = pin
         self.name = name
         self.photoIds = photoIds
@@ -37,6 +39,7 @@ class GardenData: ObservableObject {
         self.dday = dday
         self.documentId = documentId
         self.candle = candle
+        self.inscription = inscription
     }
 
     static func formattedDate(date: Date) -> String {

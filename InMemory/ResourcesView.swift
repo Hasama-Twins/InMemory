@@ -13,11 +13,11 @@ struct ResourcesView: View {
     var body: some View {
         ZStack {
             background.makeGradient() // Apply the background gradient based on the enum
-            
+
             var textColor: Color {
                     return background == .nighttime ? .white : .black
                 }
-            
+
             ScrollView {
                 VStack(alignment: .leading, spacing: 20) {
 

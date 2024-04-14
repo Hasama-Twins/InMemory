@@ -10,6 +10,7 @@ import SwiftUI
 struct Note: Identifiable {
     let id = UUID()
     var text: String
+    var date: Date
 }
 
 struct JournalView: View {
@@ -44,7 +45,8 @@ struct JournalView: View {
 
                         // Display saved notes
                         ForEach(notes) { note in
-                            Text(note.text)
+                            VStack {
+                                Text(note.text)
                                 .padding(.vertical, 50)
                                 .background(
                                     Rectangle()
@@ -53,6 +55,10 @@ struct JournalView: View {
                                         .padding()
                                         .frame(width: 350)
                                 )
+                                Text(note.date.formatted()) // Display formatted date
+                                    .font(.caption)
+                                    .foregroundColor(.gray)
+                            }
                         }
                     }
                     .padding()
@@ -62,7 +68,7 @@ struct JournalView: View {
                 Button("Save Note") {
                     if blankNoteText != "" {
                         // Add the blank note to the notes array
-                        notes.insert(Note(text: blankNoteText), at: 0)
+                        notes.insert(Note(text: blankNoteText, date: Date()), at: 0)
                         // Clear the text in the blank note
                         blankNoteText = ""
                     }}.padding().foregroundColor(background == .nighttime ? .white : .blue)

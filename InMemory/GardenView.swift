@@ -22,12 +22,7 @@ struct GardenView: View {
             currentBackground.makeGradient()
                 .ignoresSafeArea()
             
-            Image("treeTrunk").resizable()
-                .frame(width: 250, height: 900)
-            
-            Image("greenLeaves").resizable()
-                .frame(width: 600, height: 400)
-                .offset(x: 0, y: -300)
+            FrameView()
             
             
             VStack {
@@ -36,16 +31,17 @@ struct GardenView: View {
                 
                 Text("Page \(pageNumber + 1) Content")
                     .foregroundColor(.white)
-                    .font(.largeTitle)
+                    .font(.custom("Marker Felt", size: 28))
                 
+                Spacer()
                 
                 VStack {
-                    Text("Name: \(gardenData.name)")
-                    Text("Birthdate: \(gardenData.bday, formatter: dateFormatter)")
-                    Text("Date of Death: \(gardenData.dday, formatter: dateFormatter)")
+                    Text("\(gardenData.name)")
+                    Text("\(gardenData.bday, formatter: dateFormatter)")
+                    Text("\(gardenData.dday, formatter: dateFormatter)")
                         }
                         .foregroundColor(.white)
-                        .font(.title)
+                        .font(.custom("Marker Felt", size: 24))
                         .multilineTextAlignment(.center)
                 
                 Spacer()

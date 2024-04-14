@@ -22,8 +22,9 @@ class GardenData: ObservableObject {
         self.name = "First Last"
         self.photoIds = []
         let calendar = Calendar.current
-        self.bday = calendar.date(byAdding: .year, value: -10, to: Date())!
-        self.dday = Date()
+        let currentYear = Calendar.current.component(.year, from: Date())
+        self.bday = calendar.date(from: DateComponents(year: 2000, month: 1, day: 1))!
+        self.dday = calendar.date(from: DateComponents(year: currentYear, month: 1, day: 1))!
     }
 
     init(pin: String, name: String, photoIds: [String], bday: Date, dday: Date, documentId: String) {

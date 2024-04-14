@@ -16,6 +16,7 @@ struct NewGardenView: View {
 
     var body: some View {
         ZStack {
+            CloudView()
             GrassView()
 
             VStack {
@@ -34,7 +35,7 @@ struct NewGardenView: View {
                         .padding()
                         .background(Color.green)
                         .cornerRadius(8)
-                }
+                }.shadow(color: Color.black.opacity(0.3), radius: 5, x: 0, y: 3)
                 Spacer().frame(height: 50)
                 Button(action: {
                     isJoiningMemorial.toggle()
@@ -44,7 +45,7 @@ struct NewGardenView: View {
                         .padding()
                         .background(Color.blue)
                         .cornerRadius(8)
-                }
+                }.shadow(color: Color.black.opacity(0.3), radius: 5, x: 0, y: 3)
                 if isJoiningMemorial {
                     HStack {
                         TextField("Enter PIN", text: $pin)
@@ -68,7 +69,7 @@ struct NewGardenView: View {
                                 .font(.title)
                                 .foregroundColor(.blue)
                                 .padding()
-                        }
+                        }.shadow(color: Color.black.opacity(0.3), radius: 5, x: 0, y: 3)
                     }
                 }
             }
@@ -79,5 +80,11 @@ struct NewGardenView: View {
         numberOfPages += 1
         currentPage = numberOfPages - 2
         pins.append(pin)
+    }
+}
+
+struct NewGardenView_Previews: PreviewProvider {
+    static var previews: some View {
+        NewGardenView(numberOfPages: .constant(3), currentPage: .constant(2), pins: .constant([]))
     }
 }

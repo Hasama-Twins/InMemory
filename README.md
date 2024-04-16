@@ -1,5 +1,8 @@
 # InMemory
 
+[![Video Demo](https://img.youtube.com/vi/YOUR_VIDEO_ID_HERE/0.jpg)](https://www.youtube.com/watch?v=YOUR_VIDEO_ID_HERE)
+
+
 ### Purpose
 InMemory, works toward the Maker track and the Healthcare overlay. This project relates to the Tech for Good theme by using technology to support grieving individuals. It was developed using Swift and SwiftUI, with Firebase Firestore and Storage for storing journal entries, memorial details, and a shared candle. Canva was used for creating graphics.
 

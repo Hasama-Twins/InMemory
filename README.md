@@ -1,6 +1,6 @@
 # InMemory
 
-[![Video Demo](https://img.youtube.com/vi/YOUR_VIDEO_ID_HERE/0.jpg)](https://www.youtube.com/watch?v=YOUR_VIDEO_ID_HERE)
+[![Video Demo](https://youtu.be/U-RE5IP_dZg)](https://youtu.be/U-RE5IP_dZg)
 
 <img src="InMemory.png" alt="InMemory" width="300">
 
